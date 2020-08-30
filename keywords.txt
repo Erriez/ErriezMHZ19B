@@ -1,0 +1,46 @@
+#######################################
+# Syntax Coloring Map For Erriez MH-Z19B sensor library
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+ErriezMHZ19B	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+detect	KEYWORD2
+isWarmingUp	KEYWORD2
+isReady	KEYWORD2
+readCO2	KEYWORD2
+getVersion	KEYWORD2
+setRange	KEYWORD2
+getRange	KEYWORD2
+setAutoCalibration	KEYWORD2
+getAutoCalibration	KEYWORD2
+manual400ppmCalibration	KEYWORD2
+sendCommand	KEYWORD2
+receiveResponse	KEYWORD2
+
+#######################################
+# Instances (KEYWORD2)
+#######################################
+
+mhz19b	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+MHZ19_RESULT_OK	LITERAL1
+MHZ19_RESULT_ERROR	LITERAL1
+MHZ19_RESULT_ERR_CRC	LITERAL1
+MHZ19_RESULT_ERR_TIMEOUT	LITERAL1
+MHZ19_RESULT_ARGUMENT_ERROR	LITERAL1
+
+MHZ19_RANGE_INVALID	LITERAL1
+MHZ19_RANGE_2000	LITERAL1
+MHZ19_RANGE_5000	LITERAL1
