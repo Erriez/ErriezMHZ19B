@@ -34,9 +34,9 @@ The following targets are supported and tested:
 
 ## Examples
 
-* [ErriezMHZ19BGettingStarted](https://github.com/Erriez/ErriezMHZ19B/blob/master/examples/ErriezMHZ19BGettingStarted/ErriezMHZ19BGettingStarted.ino) 
-* [ErriezMHZ19BSerialPlottter](https://github.com/Erriez/ErriezMHZ19B/blob/master/examples/ErriezMHZ19BSerialPlottter/ErriezMHZ19BSerialPlottter.ino)
-* [ErriezMHZ19B7SegmentDisplay](https://github.com/Erriez/ErriezMHZ19B/blob/master/examples/ErriezMHZ19B7SegmentDisplay/ErriezMHZ19B7SegmentDisplay.ino)
+* [ErriezMHZ19BGettingStarted](https://github.com/Erriez/ErriezMHZ19B/tree/master/examples/ErriezMHZ19BGettingStarted) 
+* [ErriezMHZ19BSerialPlottter](https://github.com/Erriez/ErriezMHZ19B/tree/master/examples/ErriezMHZ19BSerialPlottter)
+* [ErriezMHZ19B7SegmentDisplay](https://github.com/Erriez/ErriezMHZ19B/tree/master/examples/ErriezMHZ19B7SegmentDisplay)
 
 
 ## Documentation
