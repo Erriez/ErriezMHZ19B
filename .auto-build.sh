@@ -14,7 +14,7 @@ function autobuild()
     BOARDS_ESP="--board d1_mini --board nodemcuv2 --board lolin_d32"
 
     echo "Install ESPSoftwareSerial into framework-arduinoespressif32 to prevent conflicts with generic name SoftwareSerial"
-    platformio lib --storage-dir ~/.platformio/packages/framework-arduinoespressif32/libraries install "ESPSoftwareSerial"
+    # platformio lib --storage-dir ~/.platformio/packages/framework-arduinoespressif32/libraries install "ESPSoftwareSerial"
 
     echo "Build examples"
     platformio ci --lib="." ${BOARDS_AVR} ${BOARDS_ARM} ${BOARDS_ESP} examples/ErriezMHZ19B7SegmentDisplay/ErriezMHZ19B7SegmentDisplay.ino
