@@ -13,8 +13,12 @@ function autobuild()
     BOARDS_ARM="--board due"
     BOARDS_ESP="--board d1_mini --board nodemcuv2 --board lolin_d32"
 
+    echo "Installing library dependencies"
+    platformio lib --global install https://github.com/Erriez/ErriezRobotDyn4DigitDisplay
+
     echo "Install ESPSoftwareSerial into framework-arduinoespressif32 to prevent conflicts with generic name SoftwareSerial"
-    # platformio lib --storage-dir ~/.platformio/packages/framework-arduinoespressif32/libraries install "ESPSoftwareSerial"
+    mkdir -p ~/.platformio/packages/framework-arduinoespressif32/libraries
+    platformio lib --storage-dir ~/.platformio/packages/framework-arduinoespressif32/libraries install "ESPSoftwareSerial"
 
     echo "Build examples"
     platformio ci --lib="." ${BOARDS_AVR} ${BOARDS_ARM} ${BOARDS_ESP} examples/ErriezMHZ19B7SegmentDisplay/ErriezMHZ19B7SegmentDisplay.ino
