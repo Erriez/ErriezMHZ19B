@@ -4,7 +4,7 @@
 
 This is a MH-Z19B CO2 sensor library for Arduino. It has been built from scratch to support hardware and software serial with a small footprint.
 
-![MHZ19B](https://raw.githubusercontent.com/Erriez/ErriezMHZ19B/master/extras/ErriezMHZ19B.png)
+![MHZ19B](https://raw.githubusercontent.com/Erriez/ErriezMHZ19B/master/extras/MHZ19B.png)
 
 
 ## Library features
@@ -34,9 +34,9 @@ The following targets are supported and tested:
 
 ## Examples
 
-* [ErriezMHZ19BGettingStarted](https://github.com/Erriez/ErriezMHZ19B/blob/master/examples/examples/ErriezMHZ19BGettingStarted) 
-* [ErriezMHZ19BSerialPlottter](https://github.com/Erriez/ErriezMHZ19B/blob/master/examples/examples/ErriezMHZ19BSerialPlottter)
-* [ErriezMHZ19B7SegmentDisplay](https://github.com/Erriez/ErriezMHZ19B/blob/master/examples/examples/ErriezMHZ19B7SegmentDisplay/ErriezMHZ19B7SegmentDisplay.ino)
+* [ErriezMHZ19BGettingStarted](https://github.com/Erriez/ErriezMHZ19B/blob/master/examples/ErriezMHZ19BGettingStarted/ErriezMHZ19BGettingStarted.ino) 
+* [ErriezMHZ19BSerialPlottter](https://github.com/Erriez/ErriezMHZ19B/blob/master/examples/ErriezMHZ19BSerialPlottter/ErriezMHZ19BSerialPlottter.ino)
+* [ErriezMHZ19B7SegmentDisplay](https://github.com/Erriez/ErriezMHZ19B/blob/master/examples/ErriezMHZ19B7SegmentDisplay/ErriezMHZ19B7SegmentDisplay.ino)
 
 
 ## Documentation

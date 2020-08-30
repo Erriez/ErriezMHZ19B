@@ -14,6 +14,7 @@ function autobuild()
     BOARDS_ESP="--board d1_mini --board nodemcuv2 --board lolin_d32"
 
     echo "Installing library dependencies"
+    platformio lib --global install https://github.com/Erriez/ErriezTM1637
     platformio lib --global install https://github.com/Erriez/ErriezRobotDyn4DigitDisplay
 
     echo "Install ESPSoftwareSerial into framework-arduinoespressif32 to prevent conflicts with generic name SoftwareSerial"
