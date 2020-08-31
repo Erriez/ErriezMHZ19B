@@ -198,6 +198,16 @@ $(function() {
 <p><b>NOTE:</b> Sending untested commands may damage the sensor permanently! Use at your own risk.</p>
 <div class="fragment"><div class="line">{c++}</div><div class="line">int16_t result;</div><div class="line"></div><div class="line">result = mhz19b.sendCommand(MHZ19B_CMD_NOT_DOCUMENTED, 0x00, 0x00, 0x00, 0x00, 0x00);</div><div class="line"></div><div class="line">// 9 Bytes response is located in mhz19b.rxBuffer[9]</div></div><!-- fragment --><h2>Library configuration</h2>
 <p>Unfortunately, the sensor has no possibility to read warming-up status, so the library must wait at least 3 minutes after reset or power-on. To speedup the boot process, macro <code>MHZ19B_SMART_WARMING_UP</code> can be enabled in <code><a class="el" href="_erriez_m_h_z19_b_8h.html" title="MH-Z19B CO2 sensor library for Arduino. ">ErriezMHZ19B.h</a></code> to enable smart warming-up when the MCU is reset and MH-Z19B powered &gt; 3 minutes.</p>
+<h2>Response timing</h2>
+<p>The screenshot below displays the response timing of a synchronous readCO2() call which takes 22.1ms on an Arduino UNO:</p><ul>
+<li>9.4ms: Transmit 9 Bytes at 9600 baud</li>
+<li>3.2ms: MH-Z19B to process command</li>
+<li>9.3ms: Return response 9 Bytes at 9600 baud</li>
+<li>183us: Arduino UNO to process response with Software Serial.</li>
+</ul>
+<div class="image">
+<img src="extras/LogicAnalyzerScreenshotMHZ19BUNOReadCO2.png" alt="Logic Analyzer Screenshot MHZ19B UNO readCO2()"/>
+</div>
 <h2>Library installation</h2>
 <p>Please refer to the <a href="https://github.com/Erriez/ErriezArduinoLibrariesAndSketches/wiki">Wiki</a> page.</p>
 <h2>Other Arduino Libraries and Sketches from Erriez</h2>
