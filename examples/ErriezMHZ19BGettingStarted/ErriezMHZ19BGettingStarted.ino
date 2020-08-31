@@ -126,6 +126,7 @@ void setup()
     Serial.println(F("ppm"));
 
     // Optional: Set automatic calibration on (true) or off (false) once
+    // Serial.print(F("Set auto calibrate..."));
     // mhz19b.setAutoCalibration(true);
 
     // Optional: Print Automatic Baseline Calibration status
