@@ -275,8 +275,7 @@ int16_t ErriezMHZ19B::getRange()
 int8_t ErriezMHZ19B::setAutoCalibration(bool calibrationOn)
 {
     // Send command "Write Automatic Baseline Correction (ABC logic function)"
-    return sendCommand(MHZ19B_CMD_SET_AUTO_CAL,
-                       (calibrationOn ? 0xA0 : 0x00), 0x00, 0x00, 0x00, 0x00);
+    return sendCommand(MHZ19B_CMD_SET_AUTO_CAL, (calibrationOn ? 0xA0 : 0x00));
 }
 
 /*!
@@ -321,7 +320,7 @@ int8_t ErriezMHZ19B::getAutoCalibration()
 int8_t ErriezMHZ19B::manual400ppmCalibration()
 {
     // Send command "Zero Point Calibration"
-    return sendCommand(MHZ19B_CMD_CAL_ZERO_POINT, 0x00, 0x00, 0x00, 0x00, 0x00);
+    return sendCommand(MHZ19B_CMD_CAL_ZERO_POINT);
 }
 
 /*!
@@ -343,13 +342,10 @@ int8_t ErriezMHZ19B::manual400ppmCalibration()
  */
 int8_t ErriezMHZ19B::sendCommand(uint8_t cmd, byte b3, byte b4, byte b5, byte b6, byte b7)
 {
-    uint8_t txBuffer[9] = { 0xFF, 0x01, cmd, b3, b4, b5, b6, b7, 0x00 };
+    uint8_t txBuffer[9] = { 0xFF, 0x01, cmd, b3, b4, b5, b6, b7, calcCRC(txBuffer) };
 
     // Save command for response verification
     _cmd = cmd;
-
-    // Append CRC Byte
-    txBuffer[8] = calcCRC(txBuffer);
 
     // Write data to sensor
     serialWrite(txBuffer, sizeof(txBuffer));
