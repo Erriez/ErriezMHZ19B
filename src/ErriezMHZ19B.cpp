@@ -65,7 +65,7 @@ ErriezMHZ19B::~ErriezMHZ19B()
  * \retval true
  *      Sensor detected.
  * \retval false
- *      Sensor not detected.
+ *      Sensor not detected, check wiring/power.
  */
 bool ErriezMHZ19B::detect()
 {
@@ -125,7 +125,10 @@ bool ErriezMHZ19B::isWarmingUp()
  * \brief Check minimum interval between CO2 reads
  * \details
  *      Not described in the datasheet, but it is the same frequency as the built-in LED blink.
- * \return
+ * \retval true
+ *      Ready to call readCO2().
+ * \retval false
+ *      Conversion not completed.
  */
 bool ErriezMHZ19B::isReady()
 {
@@ -164,6 +167,7 @@ int16_t ErriezMHZ19B::readCO2()
 
     // Check result
     if (result == MHZ19B_RESULT_OK) {
+        // 16-bit CO2 value in response Bytes 2 and 3
         result = (rxBuffer[2] << 8) | rxBuffer[3];
     }
 
@@ -201,8 +205,9 @@ int8_t ErriezMHZ19B::getVersion(char *version, uint8_t versionLen)
     if (result == MHZ19B_RESULT_OK) {
         // Copy 4 ASCII characters to version array like "0443"
         for (uint8_t i = 0; i < 4; i++) {
+            // Version in response Bytes 2..5
             version[i] = rxBuffer[i + 2];
-        };
+        }
     }
 
     return result;
@@ -283,9 +288,9 @@ int8_t ErriezMHZ19B::setAutoCalibration(bool calibrationOn)
  * \brief Get status automatic calibration (NOT DOCUMENTED)
  * \retval <0
  *      MH-Z19B response error codes.
- * \retval true
+ * \retval 1
  *      Automatic calibration on.
- * \retval false
+ * \retval 0
  *      Automatic calibration off.
  */
 int8_t ErriezMHZ19B::getAutoCalibration()
@@ -297,14 +302,8 @@ int8_t ErriezMHZ19B::getAutoCalibration()
 
     // Check result
     if (result == MHZ19B_RESULT_OK) {
-        // Response is located in Byte 7
-        if (rxBuffer[7] == 0x01) {
-            // On
-            result = 1;
-        } else if (rxBuffer[7] == 0x00) {
-            // Off
-            result = 0;
-        }
+        // Response is located in Byte 7: 0 = off, 1 = on
+        result = rxBuffer[7] & 0x01;
     }
 
     return result;
@@ -328,7 +327,8 @@ int8_t ErriezMHZ19B::startZeroCalibration()
 /*!
  * \brief Send serial command to sensor and read response
  * \details
- *      Send command to sensor and read response, protected with a receive timeout.
+ *      Send command to sensor and read response, protected with a receive timeout.\n
+ *      Result is available in public rxBuffer[9].
  * \param cmd
  *      Command Byte
  * \param b3
@@ -370,7 +370,7 @@ int8_t ErriezMHZ19B::sendCommand(uint8_t cmd, byte b3, byte b4, byte b5, byte b6
     // Clear receive buffer
     memset(rxBuffer, 0, sizeof(rxBuffer));
 
-    // Wait until all data received from sensor
+    // Wait until all data received from sensor with receive timeout protection
     tStart = millis();
     while (_serial->available() < MHZ19B_SERIAL_RX_BYTES) {
         if ((millis() - tStart) >= MHZ19B_SERIAL_RX_TIMEOUT_MS) {

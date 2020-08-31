@@ -97,7 +97,7 @@ public:
     // Detect sensor by checking range response
     bool detect();
 
-    // Is warming-up (minimum wait time after power-on)
+    // Minimum wait time after power-on
     bool isWarmingUp();
 
     // Minimum wait time between CO2 reads
@@ -109,14 +109,14 @@ public:
     // Get firmware version (NOT DOCUMENTED)
     int8_t getVersion(char *version, uint8_t versionLen);
 
-    // Set/get CO2 range
+    // Set/get CO2 range, default 5000ppm)
     int8_t setRange2000ppm();
     int8_t setRange5000ppm();
     int16_t getRange(); // (NOT DOCUMENTED)
 
-    // Set and get ABC (Automatic Baseline Correction)
+    // Set and get ABC, default on (Automatic Baseline Correction)
     int8_t setAutoCalibration(bool calibrationOn);
-    int8_t getAutoCalibration();  // (NOT DOCUMENTED)
+    int8_t getAutoCalibration(); // (NOT DOCUMENTED)
 
     // Start Zero Point Calibration manually at 400ppm
     int8_t startZeroCalibration();
@@ -128,10 +128,10 @@ public:
     uint8_t rxBuffer[MHZ19B_SERIAL_RX_BYTES];
 
 private:
-    Stream *_serial;
-    unsigned long _tLastReadCO2;
+    Stream *_serial;                //!< Serial Stream pointer
+    unsigned long _tLastReadCO2;    //!< Timestamp between readCO2() calls
 
-    // Serial communication functions
+    // CRC check on serial transmit/receive buffer
     uint8_t calcCRC(uint8_t *data);
 };
 
