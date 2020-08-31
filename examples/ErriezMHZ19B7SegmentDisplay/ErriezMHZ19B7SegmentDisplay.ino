@@ -106,6 +106,8 @@ void printErrorCode(int16_t result)
 
 void setup()
 {
+    char firmwareVersion[5];
+
     // Initialize serial
     Serial.begin(115200);
     Serial.println(F("Erriez MH-Z19B CO2 sensor example"));
@@ -133,7 +135,6 @@ void setup()
 
     // Print firmware version
     Serial.print(F("  Firmware: "));
-    char firmwareVersion[5];
     mhz19b.getVersion(firmwareVersion, sizeof(firmwareVersion));
     Serial.println(firmwareVersion);
 
