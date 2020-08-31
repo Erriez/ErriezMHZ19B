@@ -54,16 +54,16 @@
 #define MHZ19B_SERIAL_RX_TIMEOUT_MS     120
 
 // Documented commands
-#define MHZ19B_CMD_SET_AUTO_CAL         0x79 //!< Set auto calibration on/off
-#define MHZ19B_CMD_READ_CO2             0x86 //!< Read CO2 concentration
-#define MHZ19B_CMD_CAL_ZERO_POINT       0x87 //!< Calibrate zero point at 400ppm
-#define MHZ19B_CMD_CAL_SPAN_PIONT       0x88 //!< Calibrate span point (NOT IMPLEMENTED)
-#define MHZ19B_CMD_SET_RANGE            0x99 //!< Set detection range
+#define MHZ19B_CMD_SET_AUTO_CAL         0x79 //!< Command set auto calibration on/off
+#define MHZ19B_CMD_READ_CO2             0x86 //!< Command read CO2 concentration
+#define MHZ19B_CMD_CAL_ZERO_POINT       0x87 //!< Command calibrate zero point at 400ppm
+#define MHZ19B_CMD_CAL_SPAN_PIONT       0x88 //!< Command calibrate span point (NOT IMPLEMENTED)
+#define MHZ19B_CMD_SET_RANGE            0x99 //!< Command set detection range
 
 // Not documented commands
-#define MHZ19B_CMD_GET_AUTO_CAL         0x7D //!< Get auto calibration status (NOT DOCUMENTED)
-#define MHZ19B_CMD_GET_RANGE            0x9B //!< Get range detection (NOT DOCUMENTED)
-#define MHZ19B_CMD_GET_VERSION          0xA0 //!< Get firmware version (NOT DOCUMENTED)
+#define MHZ19B_CMD_GET_AUTO_CAL         0x7D //!< Command get auto calibration status (NOT DOCUMENTED)
+#define MHZ19B_CMD_GET_RANGE            0x9B //!< Command get range detection (NOT DOCUMENTED)
+#define MHZ19B_CMD_GET_VERSION          0xA0 //!< Command get firmware version (NOT DOCUMENTED)
 
 /*!
  * \brief Response on a command
@@ -81,8 +81,8 @@ typedef enum {
  */
 typedef enum {
     MHZ19_RANGE_INVALID = -1,           //!< Invalid range
-    MHZ19_RANGE_2000 = 2000,            //!< 2000 ppm
-    MHZ19_RANGE_5000 = 5000,            //!< 5000 ppm (Default)
+    MHZ19_RANGE_2000 = 2000,            //!< Range 2000 ppm
+    MHZ19_RANGE_5000 = 5000,            //!< Range 5000 ppm (Default)
 } MHZ19B_Range_e;
 
 
