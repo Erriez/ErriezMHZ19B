@@ -108,14 +108,14 @@ public:
     int16_t readCO2();
 
     // Get firmware version (NOT DOCUMENTED)
-    MHZ19B_Result_e getVersion(char version[], uint8_t versionLen);
+    MHZ19B_Result_e getVersion(char *version, uint8_t versionLen);
 
     // Set/get CO2 range
     MHZ19B_Result_e setRange(MHZ19B_Range_e range);
     MHZ19B_Range_e getRange(); // (NOT DOCUMENTED)
 
     // Set and get ABC (Automatic Baseline Correction)
-    MHZ19B_Result_e setAutoCalibration(bool abcOn);
+    MHZ19B_Result_e setAutoCalibration(bool calibrationOn);
     int8_t getAutoCalibration();  // (NOT DOCUMENTED)
 
     // Manual 400ppm calibration (Zero Point Calibration)

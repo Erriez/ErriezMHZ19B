@@ -184,7 +184,7 @@ int16_t ErriezMHZ19B::readCO2()
  * \return
  *      MH-Z19B response error codes.
  */
-MHZ19B_Result_e ErriezMHZ19B::getVersion(char version[], uint8_t versionLen)
+MHZ19B_Result_e ErriezMHZ19B::getVersion(char *version, uint8_t versionLen)
 {
     MHZ19B_Result_e result = MHZ19_RESULT_ERROR;
 
