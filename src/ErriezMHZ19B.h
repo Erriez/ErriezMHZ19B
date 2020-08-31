@@ -69,20 +69,20 @@
  * \brief Response on a command
  */
 typedef enum {
-    MHZ19_RESULT_OK = 0,                //!< Response OK
-    MHZ19_RESULT_ERROR = -1,            //!< Response error
-    MHZ19_RESULT_ERR_CRC = -2,          //!< Response CRC error
-    MHZ19_RESULT_ERR_TIMEOUT = -3,      //!< Response timeout
-    MHZ19_RESULT_ARGUMENT_ERROR = -4,   //!< Response argument error
+    MHZ19B_RESULT_OK = 0,                //!< Response OK
+    MHZ19B_RESULT_ERROR = -1,            //!< Response error
+    MHZ19B_RESULT_ERR_CRC = -2,          //!< Response CRC error
+    MHZ19B_RESULT_ERR_TIMEOUT = -3,      //!< Response timeout
+    MHZ19B_RESULT_ARGUMENT_ERROR = -4,   //!< Response argument error
 } MHZ19B_Result_e;
 
 /*!
  * \brief PPM range
  */
 typedef enum {
-    MHZ19_RANGE_INVALID = -1,           //!< Invalid range
-    MHZ19_RANGE_2000 = 2000,            //!< Range 2000 ppm
-    MHZ19_RANGE_5000 = 5000,            //!< Range 5000 ppm (Default)
+    MHZ19B_RANGE_INVALID = -1,           //!< Invalid range
+    MHZ19B_RANGE_2000 = 2000,            //!< Range 2000 ppm
+    MHZ19B_RANGE_5000 = 5000,            //!< Range 5000 ppm (Default)
 } MHZ19B_Range_e;
 
 

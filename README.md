@@ -131,11 +131,11 @@ library contains a naming conflict with existing `SoftwareSerial.h` built-in lib
 #include <SoftwareSerial.h>
 
 // Pin defines
-#define MHZ19_TX_PIN        4
-#define MHZ19_RX_PIN        5
+#define MHZ19B_TX_PIN        4
+#define MHZ19B_RX_PIN        5
 
 // Create software serial object
-SoftwareSerial mhzSerial(MHZ19_TX_PIN, MHZ19_RX_PIN);
+SoftwareSerial mhzSerial(MHZ19B_TX_PIN, MHZ19B_RX_PIN);
 
 // Create MHZ19B object with software serial
 ErriezMHZ19B mhz19b(&mhzSerial);
@@ -201,10 +201,10 @@ void loop()
         if (result < 0) {
             // Print error code
             switch (result) {
-                case MHZ19_RESULT_ERR_CRC:
+                case MHZ19B_RESULT_ERR_CRC:
                     Serial.println(F("CRC error"));
                     break;
-                case MHZ19_RESULT_ERR_TIMEOUT:
+                case MHZ19B_RESULT_ERR_TIMEOUT:
                     Serial.println(F("RX timeout"));
                     break;
                 default:

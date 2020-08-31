@@ -39,23 +39,23 @@
     #define mhzSerial           Serial1 // Use second hardware serial
 
 #elif defined(ARDUINO_ARCH_AVR)
-    #define MHZ19_TX_PIN        4
-    #define MHZ19_RX_PIN        5
+    #define MHZ19B_TX_PIN        4
+    #define MHZ19B_RX_PIN        5
 
     #include <SoftwareSerial.h>          // Use software serial
-    SoftwareSerial mhzSerial(MHZ19_TX_PIN, MHZ19_RX_PIN);
+    SoftwareSerial mhzSerial(MHZ19B_TX_PIN, MHZ19B_RX_PIN);
 #elif defined(ARDUINO_ARCH_ESP8266)
-    #define MHZ19_TX_PIN        D5
-    #define MHZ19_RX_PIN        D6
+    #define MHZ19B_TX_PIN        D5
+    #define MHZ19B_RX_PIN        D6
 
     #include <SoftwareSerial.h>          // Use software serial
-    SoftwareSerial mhzSerial(MHZ19_TX_PIN, MHZ19_RX_PIN);
+    SoftwareSerial mhzSerial(MHZ19B_TX_PIN, MHZ19B_RX_PIN);
 #elif defined(ARDUINO_ARCH_ESP32)
-    #define MHZ19_TX_PIN        18
-    #define MHZ19_RX_PIN        19
+    #define MHZ19B_TX_PIN        18
+    #define MHZ19B_RX_PIN        19
 
     #include <SoftwareSerial.h>          // Use software serial
-    SoftwareSerial mhzSerial(MHZ19_TX_PIN, MHZ19_RX_PIN);
+    SoftwareSerial mhzSerial(MHZ19B_TX_PIN, MHZ19B_RX_PIN);
 #else
     #error "May work, but not tested on this target"
 #endif

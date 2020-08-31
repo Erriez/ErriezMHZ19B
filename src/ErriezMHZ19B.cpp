@@ -70,12 +70,12 @@ ErriezMHZ19B::~ErriezMHZ19B()
 bool ErriezMHZ19B::detect()
 {
     // Check valid PPM range
-    if (getRange() != MHZ19_RANGE_INVALID) {
+    if (getRange() != MHZ19B_RANGE_INVALID) {
         return true;
     }
 
     // Sensor not detected, or invalid range returned
-    // Try recover by calling setRange(MHZ19_RANGE_5000);
+    // Try recover by calling setRange(MHZ19B_RANGE_5000);
     return false;
 }
 
@@ -166,7 +166,7 @@ int16_t ErriezMHZ19B::readCO2()
     result = receiveResponse(_response, sizeof(_response));
 
     // Check result
-    if (result == MHZ19_RESULT_OK) {
+    if (result == MHZ19B_RESULT_OK) {
         result = (_response[2] << 8) | _response[3];
     }
 
@@ -186,11 +186,11 @@ int16_t ErriezMHZ19B::readCO2()
  */
 MHZ19B_Result_e ErriezMHZ19B::getVersion(char *version, uint8_t versionLen)
 {
-    MHZ19B_Result_e result = MHZ19_RESULT_ERROR;
+    MHZ19B_Result_e result = MHZ19B_RESULT_ERROR;
 
     // Argument check
     if (versionLen < 5) {
-        return MHZ19_RESULT_ARGUMENT_ERROR;
+        return MHZ19B_RESULT_ARGUMENT_ERROR;
     }
 
     // Clear version
@@ -204,7 +204,7 @@ MHZ19B_Result_e ErriezMHZ19B::getVersion(char *version, uint8_t versionLen)
     result = receiveResponse(_response, sizeof(_response));
 
     // Check result
-    if (result == MHZ19_RESULT_OK) {
+    if (result == MHZ19B_RESULT_OK) {
         // Copy 4 ASCII characters to version array like "0443"
         for (uint8_t i = 0; i < 4; i++) {
             version[i] = _response[i + 2];
@@ -225,16 +225,16 @@ MHZ19B_Result_e ErriezMHZ19B::getVersion(char *version, uint8_t versionLen)
  */
 MHZ19B_Result_e ErriezMHZ19B::setRange(MHZ19B_Range_e range)
 {
-    int8_t result = MHZ19_RESULT_ERROR;
+    int8_t result = MHZ19B_RESULT_ERROR;
 
     switch (range) {
-        case MHZ19_RANGE_2000:
-        case MHZ19_RANGE_5000:
+        case MHZ19B_RANGE_2000:
+        case MHZ19B_RANGE_5000:
             sendCommand(MHZ19B_CMD_SET_RANGE, 0x00, 0x00, 0x00, (range >> 8), (range & 0xff));
             result = receiveResponse(_response, sizeof(_response));
             break;
         default:
-            result = MHZ19_RESULT_ARGUMENT_ERROR;
+            result = MHZ19B_RESULT_ARGUMENT_ERROR;
     }
 
     return (MHZ19B_Result_e)result;
@@ -245,28 +245,28 @@ MHZ19B_Result_e ErriezMHZ19B::setRange(MHZ19B_Range_e range)
  * \details
  *      This function verifies valid read ranges of 2000 or 5000 ppm.\n
  *      Note: Other ranges may be returned, but are undocumented and marked as invalid.
- * \retval MHZ19_RANGE_INVALID
+ * \retval MHZ19B_RANGE_INVALID
  *      Invalid range.
- * \retval MHZ19_RANGE_2000
+ * \retval MHZ19B_RANGE_2000
  *      Range 2000 ppm.
- * \retval MHZ19_RANGE_5000
+ * \retval MHZ19B_RANGE_5000
  *      Range 5000 ppm (default).
  */
 MHZ19B_Range_e ErriezMHZ19B::getRange()
 {
-    int16_t range = MHZ19_RANGE_INVALID;
+    int16_t range = MHZ19B_RANGE_INVALID;
 
     // Send command "Read range"
     // NOT DOCUMENTED!
     sendCommand(MHZ19B_CMD_GET_RANGE);
 
     // Read response
-    if (receiveResponse(_response, sizeof(_response)) == MHZ19_RESULT_OK) {
+    if (receiveResponse(_response, sizeof(_response)) == MHZ19B_RESULT_OK) {
         range = (_response[4] << 8) | _response[5];
 
         // Check range according to documented specification
-        if ((range != MHZ19_RANGE_2000) && (range != MHZ19_RANGE_5000)) {
-            range = MHZ19_RANGE_INVALID;
+        if ((range != MHZ19B_RANGE_2000) && (range != MHZ19B_RANGE_5000)) {
+            range = MHZ19B_RANGE_INVALID;
         }
     }
 
@@ -306,7 +306,7 @@ int8_t ErriezMHZ19B::getAutoCalibration()
     sendCommand(MHZ19B_CMD_GET_AUTO_CAL);
 
     // Read response
-    if (receiveResponse(_response, sizeof(_response)) == MHZ19_RESULT_OK) {
+    if (receiveResponse(_response, sizeof(_response)) == MHZ19B_RESULT_OK) {
         if (_response[7] == 0x01) {
             // On
             autoCalibrationOn = 1;
@@ -382,7 +382,7 @@ MHZ19B_Result_e ErriezMHZ19B::receiveResponse(uint8_t *rxBuffer, uint8_t rxBuffe
     
     // Argument check
     if (rxBufferLength < MHZ19B_RESPONSE_LENGTH) {
-        return MHZ19_RESULT_ARGUMENT_ERROR;
+        return MHZ19B_RESULT_ARGUMENT_ERROR;
     }
 
     // Clear receive buffer
@@ -392,7 +392,7 @@ MHZ19B_Result_e ErriezMHZ19B::receiveResponse(uint8_t *rxBuffer, uint8_t rxBuffe
     tStart = millis();
     while (serialAvailable() < rxBufferLength) {
         if ((millis() - tStart) >= MHZ19B_SERIAL_RX_TIMEOUT_MS) {
-            return MHZ19_RESULT_ERR_TIMEOUT;
+            return MHZ19B_RESULT_ERR_TIMEOUT;
         }
     }
 
@@ -400,16 +400,16 @@ MHZ19B_Result_e ErriezMHZ19B::receiveResponse(uint8_t *rxBuffer, uint8_t rxBuffe
     serialRead(rxBuffer, MHZ19B_RESPONSE_LENGTH);
 
     // Set result to OK
-    result = MHZ19_RESULT_OK;
+    result = MHZ19B_RESULT_OK;
     
     // Check received Byte[0] == 0xFF and Byte[1] == transmit command
     if ((rxBuffer[0] != 0xFF) || (rxBuffer[1] != _cmd)) {
-        result = MHZ19_RESULT_ERROR;
+        result = MHZ19B_RESULT_ERROR;
     }
     
     // Check received Byte[8] CRC
     if (rxBuffer[8] != calcCRC(rxBuffer)) {
-        result = MHZ19_RESULT_ERR_CRC;
+        result = MHZ19B_RESULT_ERR_CRC;
     }
     
     // Return result
