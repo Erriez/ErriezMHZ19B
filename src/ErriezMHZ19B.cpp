@@ -209,27 +209,27 @@ int8_t ErriezMHZ19B::getVersion(char *version, uint8_t versionLen)
 }
 
 /*!
- * \brief Set CO2 range in PPM
- * \details
- *      This function only accepts documented range values.
- * \param range
- *      Valid ranges in PPM: 2000, 5000 (default).
+ * \brief Set CO2 range 2000 ppm
  * \return
  *      MH-Z19B response error codes.
  */
-int8_t ErriezMHZ19B::setRange(MHZ19B_Range_e range)
+int8_t ErriezMHZ19B::setRange2000ppm()
 {
-    int8_t result;
+    // Send "Set range" command
+    return sendCommand(MHZ19B_CMD_SET_RANGE,
+                       0x00, 0x00, 0x00, (MHZ19B_RANGE_2000 >> 8), (MHZ19B_RANGE_2000 & 0xff));
+}
 
-    // Argument check
-    if ((range == MHZ19B_RANGE_2000) || (range == MHZ19B_RANGE_5000)) {
-        // Send "Set range" command
-        result = sendCommand(MHZ19B_CMD_SET_RANGE, 0x00, 0x00, 0x00, (range >> 8), (range & 0xff));
-    } else {
-        result = MHZ19B_RESULT_ARGUMENT_ERROR;
-    }
-
-    return result;
+/*!
+ * \brief Set CO2 range 5000 ppm
+ * \return
+ *      MH-Z19B response error codes.
+ */
+int8_t ErriezMHZ19B::setRange5000ppm()
+{
+    // Send "Set range" command
+    return sendCommand(MHZ19B_CMD_SET_RANGE,
+                       0x00, 0x00, 0x00, (MHZ19B_RANGE_5000 >> 8), (MHZ19B_RANGE_5000 & 0xff));
 }
 
 /*!

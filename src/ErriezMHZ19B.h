@@ -110,7 +110,8 @@ public:
     int8_t getVersion(char *version, uint8_t versionLen);
 
     // Set/get CO2 range
-    int8_t setRange(MHZ19B_Range_e range);
+    int8_t setRange2000ppm();
+    int8_t setRange5000ppm();
     int16_t getRange(); // (NOT DOCUMENTED)
 
     // Set and get ABC (Automatic Baseline Correction)
