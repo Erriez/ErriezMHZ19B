@@ -11,6 +11,5 @@ var searchData=
   ['mhz19b_5fread_5finterval_5fms',['MHZ19B_READ_INTERVAL_MS',['../_erriez_m_h_z19_b_8h.html#a818ebad2000e4a7bc188272f68dd24ed',1,'ErriezMHZ19B.h']]],
   ['mhz19b_5fresponse_5flength',['MHZ19B_RESPONSE_LENGTH',['../_erriez_m_h_z19_b_8h.html#adbe34ee943744e9910a80916359fe762',1,'ErriezMHZ19B.h']]],
   ['mhz19b_5fserial_5frx_5ftimeout_5fms',['MHZ19B_SERIAL_RX_TIMEOUT_MS',['../_erriez_m_h_z19_b_8h.html#ae0f0fed1c3d8366de2116c784f45d07e',1,'ErriezMHZ19B.h']]],
-  ['mhz19b_5fsmart_5fwarming_5fup',['MHZ19B_SMART_WARMING_UP',['../_erriez_m_h_z19_b_8h.html#a747c95d6395299945b61e308f9b1529d',1,'ErriezMHZ19B.h']]],
   ['mhz19b_5fwarming_5fup_5ftime_5fms',['MHZ19B_WARMING_UP_TIME_MS',['../_erriez_m_h_z19_b_8h.html#a863827cb2364984bc36f002e479b3a5b',1,'ErriezMHZ19B.h']]]
 ];
