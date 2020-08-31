@@ -1,14 +1,5 @@
 var searchData=
 [
-  ['manual400ppmcalibration',['manual400ppmCalibration',['../class_erriez_m_h_z19_b.html#a202c700c2b69ce2f25100b4bc4cf302b',1,'ErriezMHZ19B']]],
-  ['mhz19_5frange_5f2000',['MHZ19_RANGE_2000',['../_erriez_m_h_z19_b_8h.html#a76ebc29b314ea0617a0afe17093ebf10aeeb61bb820b567770ae2908dcf82d7b9',1,'ErriezMHZ19B.h']]],
-  ['mhz19_5frange_5f5000',['MHZ19_RANGE_5000',['../_erriez_m_h_z19_b_8h.html#a76ebc29b314ea0617a0afe17093ebf10aa1fc23c5246b38a1b079a033324055b1',1,'ErriezMHZ19B.h']]],
-  ['mhz19_5frange_5finvalid',['MHZ19_RANGE_INVALID',['../_erriez_m_h_z19_b_8h.html#a76ebc29b314ea0617a0afe17093ebf10a1008646d564ad6347420223589ce604b',1,'ErriezMHZ19B.h']]],
-  ['mhz19_5fresult_5fargument_5ferror',['MHZ19_RESULT_ARGUMENT_ERROR',['../_erriez_m_h_z19_b_8h.html#a840ce9c832bbf7efabe351559cf1bf00a6064ec393bab233e39b525236471f8bb',1,'ErriezMHZ19B.h']]],
-  ['mhz19_5fresult_5ferr_5fcrc',['MHZ19_RESULT_ERR_CRC',['../_erriez_m_h_z19_b_8h.html#a840ce9c832bbf7efabe351559cf1bf00ad03b9d88144105345d91d98c90a1af59',1,'ErriezMHZ19B.h']]],
-  ['mhz19_5fresult_5ferr_5ftimeout',['MHZ19_RESULT_ERR_TIMEOUT',['../_erriez_m_h_z19_b_8h.html#a840ce9c832bbf7efabe351559cf1bf00a3c3b8a7db8ca12260393343b6ddca926',1,'ErriezMHZ19B.h']]],
-  ['mhz19_5fresult_5ferror',['MHZ19_RESULT_ERROR',['../_erriez_m_h_z19_b_8h.html#a840ce9c832bbf7efabe351559cf1bf00a220ceed53535d963a2a405d34450193e',1,'ErriezMHZ19B.h']]],
-  ['mhz19_5fresult_5fok',['MHZ19_RESULT_OK',['../_erriez_m_h_z19_b_8h.html#a840ce9c832bbf7efabe351559cf1bf00a7f8476bab84805b0f060380cb8cc495c',1,'ErriezMHZ19B.h']]],
   ['mhz19b_5fcmd_5fcal_5fspan_5fpiont',['MHZ19B_CMD_CAL_SPAN_PIONT',['../_erriez_m_h_z19_b_8h.html#a7b6ce9d69bb04580774122443b6b3903',1,'ErriezMHZ19B.h']]],
   ['mhz19b_5fcmd_5fcal_5fzero_5fpoint',['MHZ19B_CMD_CAL_ZERO_POINT',['../_erriez_m_h_z19_b_8h.html#ac5d5d4aeb9ad7e3a4cad953b7c85155a',1,'ErriezMHZ19B.h']]],
   ['mhz19b_5fcmd_5fget_5fauto_5fcal',['MHZ19B_CMD_GET_AUTO_CAL',['../_erriez_m_h_z19_b_8h.html#abf3af3c3ec652bbaaefe8981fbb0a6dd',1,'ErriezMHZ19B.h']]],
@@ -17,10 +8,17 @@ var searchData=
   ['mhz19b_5fcmd_5fread_5fco2',['MHZ19B_CMD_READ_CO2',['../_erriez_m_h_z19_b_8h.html#a963db0ed665ead5f6fb8ca97b9d06602',1,'ErriezMHZ19B.h']]],
   ['mhz19b_5fcmd_5fset_5fauto_5fcal',['MHZ19B_CMD_SET_AUTO_CAL',['../_erriez_m_h_z19_b_8h.html#afd870e9d55758a75b3fd7d75d8c6263b',1,'ErriezMHZ19B.h']]],
   ['mhz19b_5fcmd_5fset_5frange',['MHZ19B_CMD_SET_RANGE',['../_erriez_m_h_z19_b_8h.html#a6ccfe535c91fd8733cbfb32a65d22272',1,'ErriezMHZ19B.h']]],
+  ['mhz19b_5frange_5f2000',['MHZ19B_RANGE_2000',['../_erriez_m_h_z19_b_8h.html#a76ebc29b314ea0617a0afe17093ebf10a40f9d211c490df44a1c1acfb3cf1d7c4',1,'ErriezMHZ19B.h']]],
+  ['mhz19b_5frange_5f5000',['MHZ19B_RANGE_5000',['../_erriez_m_h_z19_b_8h.html#a76ebc29b314ea0617a0afe17093ebf10a3d15139fead276bdf515ec756cacc06e',1,'ErriezMHZ19B.h']]],
   ['mhz19b_5frange_5fe',['MHZ19B_Range_e',['../_erriez_m_h_z19_b_8h.html#a76ebc29b314ea0617a0afe17093ebf10',1,'ErriezMHZ19B.h']]],
   ['mhz19b_5fread_5finterval_5fms',['MHZ19B_READ_INTERVAL_MS',['../_erriez_m_h_z19_b_8h.html#a818ebad2000e4a7bc188272f68dd24ed',1,'ErriezMHZ19B.h']]],
-  ['mhz19b_5fresponse_5flength',['MHZ19B_RESPONSE_LENGTH',['../_erriez_m_h_z19_b_8h.html#adbe34ee943744e9910a80916359fe762',1,'ErriezMHZ19B.h']]],
+  ['mhz19b_5fresult_5fargument_5ferror',['MHZ19B_RESULT_ARGUMENT_ERROR',['../_erriez_m_h_z19_b_8h.html#a840ce9c832bbf7efabe351559cf1bf00a50dd9208d04ee5ccabd254d952351269',1,'ErriezMHZ19B.h']]],
   ['mhz19b_5fresult_5fe',['MHZ19B_Result_e',['../_erriez_m_h_z19_b_8h.html#a840ce9c832bbf7efabe351559cf1bf00',1,'ErriezMHZ19B.h']]],
+  ['mhz19b_5fresult_5ferr_5fcrc',['MHZ19B_RESULT_ERR_CRC',['../_erriez_m_h_z19_b_8h.html#a840ce9c832bbf7efabe351559cf1bf00a49d4c926dd8734f1f88fdd00e608ef91',1,'ErriezMHZ19B.h']]],
+  ['mhz19b_5fresult_5ferr_5ftimeout',['MHZ19B_RESULT_ERR_TIMEOUT',['../_erriez_m_h_z19_b_8h.html#a840ce9c832bbf7efabe351559cf1bf00a2a2f13129cc8ce2f8638a97fefbd064b',1,'ErriezMHZ19B.h']]],
+  ['mhz19b_5fresult_5ferror',['MHZ19B_RESULT_ERROR',['../_erriez_m_h_z19_b_8h.html#a840ce9c832bbf7efabe351559cf1bf00a81df5440187c7e825a7400c2bbca6802',1,'ErriezMHZ19B.h']]],
+  ['mhz19b_5fresult_5fok',['MHZ19B_RESULT_OK',['../_erriez_m_h_z19_b_8h.html#a840ce9c832bbf7efabe351559cf1bf00a2bf5942d0c90a7f2f7b61d36f74a5bc3',1,'ErriezMHZ19B.h']]],
+  ['mhz19b_5fserial_5frx_5fbytes',['MHZ19B_SERIAL_RX_BYTES',['../_erriez_m_h_z19_b_8h.html#a11e4486fb886094bbad1cd8e0d00046c',1,'ErriezMHZ19B.h']]],
   ['mhz19b_5fserial_5frx_5ftimeout_5fms',['MHZ19B_SERIAL_RX_TIMEOUT_MS',['../_erriez_m_h_z19_b_8h.html#ae0f0fed1c3d8366de2116c784f45d07e',1,'ErriezMHZ19B.h']]],
   ['mhz19b_5fwarming_5fup_5ftime_5fms',['MHZ19B_WARMING_UP_TIME_MS',['../_erriez_m_h_z19_b_8h.html#a863827cb2364984bc36f002e479b3a5b',1,'ErriezMHZ19B.h']]]
 ];
