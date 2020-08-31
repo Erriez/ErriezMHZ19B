@@ -302,6 +302,18 @@ at least 3 minutes after reset or power-on. To speedup the boot process, macro
 MCU is reset and MH-Z19B powered > 3 minutes.
 
 
+## Response timing
+
+The screenshot below displays the response timing of a synchronous readCO2() call which takes 22.1ms
+on an Arduino UNO:
+* 9.4ms: Transmit 9 Bytes at 9600 baud
+* 3.2ms: MH-Z19B to process command
+* 9.3ms: Return response 9 Bytes at 9600 baud
+* 183us: Arduino UNO to process response with Software Serial. 
+
+![Logic Analyzer Screenshot MHZ19B UNO readCO2()](extras/LogicAnalyzerScreenshotMHZ19BUNOReadCO2.png)
+
+
 ## Library installation
 
 Please refer to the [Wiki](https://github.com/Erriez/ErriezArduinoLibrariesAndSketches/wiki) page.
