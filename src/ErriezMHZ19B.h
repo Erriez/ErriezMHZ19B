@@ -118,8 +118,8 @@ public:
     int8_t setAutoCalibration(bool calibrationOn);
     int8_t getAutoCalibration();  // (NOT DOCUMENTED)
 
-    // Manual 400ppm calibration (Zero Point Calibration)
-    int8_t manual400ppmCalibration();
+    // Start Zero Point Calibration manually at 400ppm
+    int8_t startZeroCalibration();
     
     // Serial communication
     int8_t sendCommand(uint8_t cmd, byte b3=0, byte b4=0, byte b5=0, byte b6=0, byte b7=0);

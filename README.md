@@ -105,7 +105,7 @@ Procedure for manual calibration at 400ppm:
 * Turn automatic calibration off.
 * Power the sensor up outdoor in fresh air for at least 20 minutes. (Not in a forest or a farm 
   which produces background CO2)
-* Call `manual400ppmCalibration()` once. This will send command `0x87 Zero Point Calibration`, but 
+* Call `startZeroCalibration()` once. This will send command `0x87 Zero Point Calibration`, but 
   is not a zero calibration as stated in the datasheet. There is no nitrogen needed as this 
   calibration is performed at 400ppm.
 

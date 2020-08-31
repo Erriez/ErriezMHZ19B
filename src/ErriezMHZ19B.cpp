@@ -309,15 +309,15 @@ int8_t ErriezMHZ19B::getAutoCalibration()
 }
 
 /*!
- * \brief Manual 400ppm calibration (Zero Point Calibration)
+ * \brief Start Zero Point Calibration manually at 400ppm
  * \details
  *      The sensor must be powered-up for at least 20 minutes in fresh air at 400ppm room
- *      temperature. Then call this function once to execute self calibration.
- *      Note: This function is useful when auto calibrate is turned off.
+ *      temperature. Then call this function once to execute self calibration.\n
+ *      Recommended to use this function when auto calibrate turned off.
  * \return
  *      MH-Z19B response error codes.
  */
-int8_t ErriezMHZ19B::manual400ppmCalibration()
+int8_t ErriezMHZ19B::startZeroCalibration()
 {
     // Send command "Zero Point Calibration"
     return sendCommand(MHZ19B_CMD_CAL_ZERO_POINT);
