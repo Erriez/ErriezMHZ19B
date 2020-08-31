@@ -2,20 +2,24 @@
 
 [![Build Status](https://travis-ci.org/Erriez/ErriezMHZ19B.svg?branch=master)](https://travis-ci.org/Erriez/ErriezMHZ19B)
 
-This is a MH-Z19B CO2 sensor library for Arduino. It has been built from scratch to support hardware and software serial with a small footprint.
+This is a MH-Z19B CO2 sensor library for Arduino. It has been built from scratch to support hardware 
+and software serial with a small footprint.
+
+The MH-Z19B is a NDIR (Non-Dispersive Infrared) type gas sensor with built-in temperature
+compensation to measure CO2 concentration in air.
 
 ![MHZ19B](https://raw.githubusercontent.com/Erriez/ErriezMHZ19B/master/extras/MHZ19B.png)
 
 
 ## Library features
 
-* Small code/memory footprint (No PWM support)
+* Small code/memory footprint
 * Hardware and software serial interface at 9600 baud 8N1
-* Read CO2 concentration 400..5000 ppm +/-50ppm+3% max 5 seconds interval
+* Read CO2 concentration 400..5000 ppm +/-50ppm+3% minimum 5 seconds interval
 * Chip detection
 * Smart warming-up detection
 * Read firmware version
-* Set/get range 2000 or 5000 ppm for higher accuracy
+* Set/get range 2000 or 5000 ppm
 * Set/get auto calibration (Automatic Baseline Correction 24h interval)
 * Manual 400ppm calibration command
 * CRC checks on communication protocol and timeout handling
@@ -42,7 +46,8 @@ The following targets are supported and tested:
 ## Documentation
 
 - [Online HTML](https://erriez.github.io/ErriezMHZ19B)
-- [Download PDF](https://github.com/Erriez/ErriezMHZ19B/raw/master/ErriezMHZ19B.pdf)
+- [Doxygen PDF](https://github.com/Erriez/ErriezMHZ19B/raw/master/ErriezMHZ19B.pdf)
+- [Datasheet PDF](https://github.com/Erriez/ErriezMHZ19B/blob/master/extras/mh-z19b-co2-ver1_0.pdf)
 
 
 ## CO2 Concentrations
@@ -66,39 +71,50 @@ The table below displays the human impact of CO2:
 
 ### Calibration
 
-The sensor requires an internal calibration regularly. Without it, the minimum value drifts away which is noticeable after a few weeks of operation. With my experiments, the minimum value was drifted to 800ppm after 3 months continues operation without a calibration.
+The sensor requires an internal calibration regularly. Without it, the minimum value drifts away 
+which is noticeable after a few weeks of operation. With my experiments, the minimum value was 
+drifted to 800ppm after 3 months continues operation without a calibration.
 
 There are two calibration options:
 
-1. Automatic calibration, performed every 24 hours.
+1. Automatic calibration, performed every 24 hours (default).
 2. Manual calibration.
 
 ### 1. Automatic Calibration
 
-Automatic calibration is recommended when the sensor cannot be moved outdoor with fresh air. This calibration method requires a regularly ventilated room at 400ppm, at least once in 2..3 weeks. Additionally, it requires continues power-up without interruptions, otherwise the calibration data will not be updated correctly.
+Automatic calibration is recommended when the sensor cannot be moved outdoor with fresh air. This 
+calibration method requires a regularly ventilated room at 400ppm, at least once in 1..3 weeks. 
+Additionally, it requires continues power-up without interruptions, otherwise the calibration data 
+will not be updated correctly.
 
 Automatic calibration configuration:
 
-* Set auto calibration on: `setAutoCalibration(true)`.
+* Set auto calibration on: `setAutoCalibration(true)` (Default from manufacture).
 * Set auto calibration off: `setAutoCalibration(false)`.
 
 The status can be read with function `getAutoCalibration()`.
 
-**Note:** The datasheet uses the terminology `ABC (Automatic Baseline Correction) logic on/off`.
+**Note:**  
+For simplicity, this library uses the terminology `Automatic Calibration` which is identical to the
+`ABC (Automatic Baseline Correction) logic on/off` mentioned in the datasheet.
 
 ### 2. Manual Calibration (400ppm)
 
 Procedure for manual calibration at 400ppm:
 
 * Turn automatic calibration off.
-* Power the sensor up outdoor in fresh air for at least 20 minutes. (Not in a forest or a farm which produces background CO2)
-* Call `manual400ppmCalibration()` once. This will send command `0x87 Zero Point Calibration`, but is not a zero calibration as stated in the datasheet. There is no nitrogen needed as this calibration is performed at 400ppm.
+* Power the sensor up outdoor in fresh air for at least 20 minutes. (Not in a forest or a farm 
+  which produces background CO2)
+* Call `manual400ppmCalibration()` once. This will send command `0x87 Zero Point Calibration`, but 
+  is not a zero calibration as stated in the datasheet. There is no nitrogen needed as this 
+  calibration is performed at 400ppm.
 
 Now the sensor is calibrated. Repeat the sequence more often for higher accuracy.
 
 ### 3. Manual Calibration (SPAN)
 
-The datasheet also mentions a command `0x88 Span Point Calibration`. The procedure is not clear and therefor not implemented in this library, because an incorrect calibration procedure will damage the sensor.
+The datasheet also mentions a command `0x88 Span Point Calibration`. The calibration procedure is
+not clear and therefore not implemented in this library.
 
 
 ## MH-Z19B API
@@ -106,8 +122,9 @@ The datasheet also mentions a command `0x88 Span Point Calibration`. The procedu
 **Initialization Software Serial**
 
 Use a Software Serial when no hardware serial is available. Sometimes a 3rd party library is
-required, for example for ESP32 targets by installing `ESPSoftwareSerial` into 
-`.arduino15/packages/esp32/hardware/esp32/<version>/libraries/EspSoftwareSerial`.
+required, for example for ESP32 targets by installing `ESPSoftwareSerial`. It must be installed into 
+`.arduino15/packages/esp32/hardware/esp32/<version>/libraries/EspSoftwareSerial`, because the 
+library contains a naming conflict with existing `SoftwareSerial.h` built-in libraries.
 
 ```c++
 #include <ErriezMHZ19B.h>
@@ -126,8 +143,9 @@ ErriezMHZ19B mhz19b(&mhzSerial);
 
 **Initialization Hardware Serial**
 
-Use first hardware `Serial`, or second hardware serial like `Serial1`, `Serial2` etc when available
-such as ATMEGA2560, Leonardo and SAM DUE boards:
+Any hardware serial like `Serial`, `Serial1`, `Serial2` etc can be used when supported by the CPU.
+Multiple hardware serial ports are only available on targets like ATMEGA2560, Leonardo and SAM DUE 
+boards:
 
 ```c++
 #include <ErriezMHZ19B.h>
@@ -138,7 +156,7 @@ ErriezMHZ19B mhz19b(&Serial1);
 
 **General initialization**
 
-An initialization sequence. The optional items can be omitted.
+The optional items of the initialization sequence can be omitted.
 
 ```c++
 void setup()
@@ -203,7 +221,7 @@ void loop()
 }
 ```
 
-**Print internals**
+**Print internal settings**
 
 All tests are performed with sensor version string `"0443"`.
 
@@ -212,7 +230,6 @@ char firmwareVersion[5];
 
 // Optional: Print firmware version
 Serial.print(F("  Firmware: "));
-char firmwareVersion[5];
 mhz19b.getVersion(firmwareVersion, sizeof(firmwareVersion));
 Serial.println(firmwareVersion);
 
@@ -228,7 +245,7 @@ Serial.println(mhz19b.getAutoCalibration() ? F("On") : F("Off"));
 
 **Set automatic calibration**
 
-Turn automatic calibration  on or off:
+Turn automatic calibration on or off once at startup:
 
 ```c++
 // Optional: Set automatic calibration on (true) or off (false) once
@@ -270,6 +287,14 @@ int16_t result;
 mhz19b.sendCommand(MHZ19B_CMD_NOT_DOCUMENTED, 0x00, 0x00, 0x00, 0x00, 0x00);
 result = mhz19b.receiveResponse(response, sizeof(response));
 ```
+
+
+## Library configuration
+
+Unfortunately, the sensor has no possibility to read warming-up status, so the library must wait
+at least 3 minutes after reset or power-on. To speedup the boot process, macro 
+`MHZ19B_SMART_WARMING_UP` can be enabled in `ErriezMHZ19B.h` to enable smart warming-up when the 
+MCU is reset and MH-Z19B powered > 3 minutes.
 
 
 ## Library installation

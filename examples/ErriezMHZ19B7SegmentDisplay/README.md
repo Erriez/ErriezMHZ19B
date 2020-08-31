@@ -1,6 +1,7 @@
 # Erriez MH-Z19B Display and Buzzer Example
 
-CO2 concentration on a 4-digit 7-segment display and Arduino UNO board and buzzer alarm when a high CO2 concentration is detected:
+CO2 concentration on a 4-digit 7-segment display and Arduino UNO board and buzzer alarm when a high 
+CO2 concentration is detected:
 
 ![ErriezMHZ19B7SegmentDisplay](../../extras/ErriezMHZ19B7SegmentDisplay.png)
 
