@@ -176,12 +176,12 @@ void loop()
             Serial.print(result);
             Serial.println(F(" ppm"));
 
-            if (result > 1000) {
-                buzzerBeep(1);
+            if (result > 2000) {
+                buzzerBeep(3);
             } else if (result > 1500) {
                 buzzerBeep(2);
-            } else if (result > 2000) {
-                buzzerBeep(3);
+            } else if (result > 1000) {
+                buzzerBeep(1);
             }
         }
     }
