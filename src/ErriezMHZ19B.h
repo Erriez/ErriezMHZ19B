@@ -80,7 +80,6 @@ typedef enum {
  * \brief PPM range
  */
 typedef enum {
-    MHZ19B_RANGE_INVALID = -1,           //!< Invalid range
     MHZ19B_RANGE_2000 = 2000,            //!< Range 2000 ppm
     MHZ19B_RANGE_5000 = 5000,            //!< Range 5000 ppm (Default)
 } MHZ19B_Range_e;
@@ -108,23 +107,22 @@ public:
     int16_t readCO2();
 
     // Get firmware version (NOT DOCUMENTED)
-    MHZ19B_Result_e getVersion(char *version, uint8_t versionLen);
+    int8_t getVersion(char *version, uint8_t versionLen);
 
     // Set/get CO2 range
-    MHZ19B_Result_e setRange(MHZ19B_Range_e range);
-    MHZ19B_Range_e getRange(); // (NOT DOCUMENTED)
+    int8_t setRange(MHZ19B_Range_e range);
+    int16_t getRange(); // (NOT DOCUMENTED)
 
     // Set and get ABC (Automatic Baseline Correction)
-    MHZ19B_Result_e setAutoCalibration(bool calibrationOn);
+    int8_t setAutoCalibration(bool calibrationOn);
     int8_t getAutoCalibration();  // (NOT DOCUMENTED)
 
     // Manual 400ppm calibration (Zero Point Calibration)
-    MHZ19B_Result_e manual400ppmCalibration();
+    int8_t manual400ppmCalibration();
     
     // Serial communication
-    void sendCommand(uint8_t cmd, byte b3=0, byte b4=0, byte b5=0, byte b6=0, byte b7=0);
-    MHZ19B_Result_e receiveResponse(uint8_t *rxBuffer, uint8_t rxBufferLength);
-    
+    int8_t sendCommand(uint8_t cmd, byte b3=0, byte b4=0, byte b5=0, byte b6=0, byte b7=0);
+
 private:
     Stream *_serial;
     unsigned long _tLastReadCO2;
@@ -132,6 +130,7 @@ private:
     uint8_t _response[MHZ19B_RESPONSE_LENGTH];
 
     // Serial communication functions
+    int8_t receiveResponse(uint8_t *rxBuffer, uint8_t rxBufferLength);
     uint8_t calcCRC(uint8_t *data);
 
     // Serial interface functions

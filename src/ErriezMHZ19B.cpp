@@ -70,7 +70,7 @@ ErriezMHZ19B::~ErriezMHZ19B()
 bool ErriezMHZ19B::detect()
 {
     // Check valid PPM range
-    if (getRange() != MHZ19B_RANGE_INVALID) {
+    if (getRange() > 0) {
         return true;
     }
 
@@ -82,10 +82,10 @@ bool ErriezMHZ19B::detect()
 /*!
  * \brief Check if sensor is warming-up after power-on
  * \details
- *      The datasheet mentions a startup delay of 3 minutes before reading CO2.
+ *      The datasheet mentions a startup delay of 3 minutes before reading CO2.\n
  *      Experimentally discovered, the sensor may return CO2 data earlier. To speed-up the boot
  *      process, it is possible to check if the CO2 value changes to abort the warming-up, for
- *      example when the MCU is reset and keep the sensor powered.
+ *      example when the MCU is reset and keep the sensor powered.\n
  *      Recommended to disable this option for deployment by disabling macro
  *      MHZ19B_SMART_WARMING_UP in header file.
  * \retval true
@@ -160,10 +160,7 @@ int16_t ErriezMHZ19B::readCO2()
     _tLastReadCO2 = millis();
     
     // Send command "Read CO2 concentration"
-    sendCommand(MHZ19B_CMD_READ_CO2);
-
-    // Read response
-    result = receiveResponse(_response, sizeof(_response));
+    result = sendCommand(MHZ19B_CMD_READ_CO2);
 
     // Check result
     if (result == MHZ19B_RESULT_OK) {
@@ -178,15 +175,16 @@ int16_t ErriezMHZ19B::readCO2()
  * \details
  *      This is an undocumented command, but most sensors returns ASCII "0430 or "0443".
  * \param version
- *      Character pointer to version (must be at least 5 Bytes).
+ *      Returned character pointer to version (must be at least 5 Bytes)\n
+ *      Only valid when return is set to MHZ19B_RESULT_OK.
  * \param versionLen
  *      Number of characters including NULL of version buffer.
  * \return
  *      MH-Z19B response error codes.
  */
-MHZ19B_Result_e ErriezMHZ19B::getVersion(char *version, uint8_t versionLen)
+int8_t ErriezMHZ19B::getVersion(char *version, uint8_t versionLen)
 {
-    MHZ19B_Result_e result = MHZ19B_RESULT_ERROR;
+    int8_t result;
 
     // Argument check
     if (versionLen < 5) {
@@ -196,12 +194,8 @@ MHZ19B_Result_e ErriezMHZ19B::getVersion(char *version, uint8_t versionLen)
     // Clear version
     memset(version, 0, 5);
 
-    // Send command "Read firmware version"
-    // NOT DOCUMENTED!
-    sendCommand(MHZ19B_CMD_GET_VERSION);
-
-    // Read response
-    result = receiveResponse(_response, sizeof(_response));
+    // Send command "Read firmware version" (NOT DOCUMENTED)
+    result = sendCommand(MHZ19B_CMD_GET_VERSION);
 
     // Check result
     if (result == MHZ19B_RESULT_OK) {
@@ -223,21 +217,19 @@ MHZ19B_Result_e ErriezMHZ19B::getVersion(char *version, uint8_t versionLen)
  * \return
  *      MH-Z19B response error codes.
  */
-MHZ19B_Result_e ErriezMHZ19B::setRange(MHZ19B_Range_e range)
+int8_t ErriezMHZ19B::setRange(MHZ19B_Range_e range)
 {
-    int8_t result = MHZ19B_RESULT_ERROR;
+    int8_t result;
 
-    switch (range) {
-        case MHZ19B_RANGE_2000:
-        case MHZ19B_RANGE_5000:
-            sendCommand(MHZ19B_CMD_SET_RANGE, 0x00, 0x00, 0x00, (range >> 8), (range & 0xff));
-            result = receiveResponse(_response, sizeof(_response));
-            break;
-        default:
-            result = MHZ19B_RESULT_ARGUMENT_ERROR;
+    // Argument check
+    if ((range == MHZ19B_RANGE_2000) || (range == MHZ19B_RANGE_5000)) {
+        // Send "Set range" command
+        result = sendCommand(MHZ19B_CMD_SET_RANGE, 0x00, 0x00, 0x00, (range >> 8), (range & 0xff));
+    } else {
+        result = MHZ19B_RESULT_ARGUMENT_ERROR;
     }
 
-    return (MHZ19B_Result_e)result;
+    return result;
 }
 
 /*!
@@ -245,32 +237,31 @@ MHZ19B_Result_e ErriezMHZ19B::setRange(MHZ19B_Range_e range)
  * \details
  *      This function verifies valid read ranges of 2000 or 5000 ppm.\n
  *      Note: Other ranges may be returned, but are undocumented and marked as invalid.
- * \retval MHZ19B_RANGE_INVALID
- *      Invalid range.
+ * \retval <0
+ *      MH-Z19B response error codes.
  * \retval MHZ19B_RANGE_2000
  *      Range 2000 ppm.
  * \retval MHZ19B_RANGE_5000
  *      Range 5000 ppm (default).
  */
-MHZ19B_Range_e ErriezMHZ19B::getRange()
+int16_t ErriezMHZ19B::getRange()
 {
-    int16_t range = MHZ19B_RANGE_INVALID;
+    int16_t result;
 
-    // Send command "Read range"
-    // NOT DOCUMENTED!
-    sendCommand(MHZ19B_CMD_GET_RANGE);
+    // Send command "Read range" (NOT DOCUMENTED)
+    result = sendCommand(MHZ19B_CMD_GET_RANGE);
 
-    // Read response
-    if (receiveResponse(_response, sizeof(_response)) == MHZ19B_RESULT_OK) {
-        range = (_response[4] << 8) | _response[5];
+    // Check result
+    if (result == MHZ19B_RESULT_OK) {
+        result = (_response[4] << 8) | _response[5];
 
         // Check range according to documented specification
-        if ((range != MHZ19B_RANGE_2000) && (range != MHZ19B_RANGE_5000)) {
-            range = MHZ19B_RANGE_INVALID;
+        if ((result != MHZ19B_RANGE_2000) && (result != MHZ19B_RANGE_5000)) {
+            result = MHZ19B_RESULT_ERROR;
         }
     }
 
-    return (MHZ19B_Range_e)range;
+    return result;
 }
 
 /*!
@@ -281,17 +272,17 @@ MHZ19B_Range_e ErriezMHZ19B::getRange()
  * \return
  *      MH-Z19B response error codes.
  */
-MHZ19B_Result_e ErriezMHZ19B::setAutoCalibration(bool calibrationOn)
+int8_t ErriezMHZ19B::setAutoCalibration(bool calibrationOn)
 {
     // Send command "Write Automatic Baseline Correction (ABC logic function)"
-    sendCommand(MHZ19B_CMD_SET_AUTO_CAL, (calibrationOn ? 0xA0 : 0x00), 0x00, 0x00, 0x00, 0x00);
-
-    // Read response
-    return receiveResponse(_response, sizeof(_response));
+    return sendCommand(MHZ19B_CMD_SET_AUTO_CAL,
+                       (calibrationOn ? 0xA0 : 0x00), 0x00, 0x00, 0x00, 0x00);
 }
 
 /*!
  * \brief Get status automatic calibration (NOT DOCUMENTED)
+ * \retval <0
+ *      MH-Z19B response error codes.
  * \retval true
  *      Automatic calibration on.
  * \retval false
@@ -299,24 +290,23 @@ MHZ19B_Result_e ErriezMHZ19B::setAutoCalibration(bool calibrationOn)
  */
 int8_t ErriezMHZ19B::getAutoCalibration()
 {
-    int8_t autoCalibrationOn = -1;
+    int8_t result;
 
-    // Send command "Read Automatic Baseline Correction (ABC logic function)"
-    // NOT DOCUMENTED!
-    sendCommand(MHZ19B_CMD_GET_AUTO_CAL);
+    // Send command "Read Automatic Baseline Correction (ABC logic function)" (NOT DOCUMENTED)
+    result = sendCommand(MHZ19B_CMD_GET_AUTO_CAL);
 
-    // Read response
-    if (receiveResponse(_response, sizeof(_response)) == MHZ19B_RESULT_OK) {
+    // Check result
+    if (result == MHZ19B_RESULT_OK) {
         if (_response[7] == 0x01) {
             // On
-            autoCalibrationOn = 1;
+            result = 1;
         } else if (_response[7] == 0x00) {
             // Off
-            autoCalibrationOn = 0;
+            result = 0;
         }
     }
 
-    return autoCalibrationOn;
+    return result;
 }
 
 /*!
@@ -328,11 +318,10 @@ int8_t ErriezMHZ19B::getAutoCalibration()
  * \return
  *      MH-Z19B response error codes.
  */
-MHZ19B_Result_e ErriezMHZ19B::manual400ppmCalibration()
+int8_t ErriezMHZ19B::manual400ppmCalibration()
 {
     // Send command "Zero Point Calibration"
-    sendCommand(MHZ19B_CMD_CAL_ZERO_POINT, 0x00, 0x00, 0x00, 0x00, 0x00);
-    return receiveResponse(_response, sizeof(_response));
+    return sendCommand(MHZ19B_CMD_CAL_ZERO_POINT, 0x00, 0x00, 0x00, 0x00, 0x00);
 }
 
 /*!
@@ -352,7 +341,7 @@ MHZ19B_Result_e ErriezMHZ19B::manual400ppmCalibration()
  * \param b7
  *      Byte 7
  */
-void ErriezMHZ19B::sendCommand(uint8_t cmd, byte b3, byte b4, byte b5, byte b6, byte b7)
+int8_t ErriezMHZ19B::sendCommand(uint8_t cmd, byte b3, byte b4, byte b5, byte b6, byte b7)
 {
     uint8_t txBuffer[9] = { 0xFF, 0x01, cmd, b3, b4, b5, b6, b7, 0x00 };
 
@@ -364,6 +353,9 @@ void ErriezMHZ19B::sendCommand(uint8_t cmd, byte b3, byte b4, byte b5, byte b6, 
 
     // Write data to sensor
     serialWrite(txBuffer, sizeof(txBuffer));
+
+    // Read response
+    return receiveResponse(_response, sizeof(_response));
 }
 
 /*!
@@ -375,10 +367,10 @@ void ErriezMHZ19B::sendCommand(uint8_t cmd, byte b3, byte b4, byte b5, byte b6, 
  * \return
  *      MH-Z19B response error codes.
  */
-MHZ19B_Result_e ErriezMHZ19B::receiveResponse(uint8_t *rxBuffer, uint8_t rxBufferLength)
+int8_t ErriezMHZ19B::receiveResponse(uint8_t *rxBuffer, uint8_t rxBufferLength)
 {
+    int8_t result = MHZ19B_RESULT_OK;
     unsigned long tStart;
-    MHZ19B_Result_e result;
     
     // Argument check
     if (rxBufferLength < MHZ19B_RESPONSE_LENGTH) {
@@ -398,9 +390,6 @@ MHZ19B_Result_e ErriezMHZ19B::receiveResponse(uint8_t *rxBuffer, uint8_t rxBuffe
 
     // Read response from serial buffer
     serialRead(rxBuffer, MHZ19B_RESPONSE_LENGTH);
-
-    // Set result to OK
-    result = MHZ19B_RESULT_OK;
     
     // Check received Byte[0] == 0xFF and Byte[1] == transmit command
     if ((rxBuffer[0] != 0xFF) || (rxBuffer[1] != _cmd)) {
@@ -471,6 +460,7 @@ void ErriezMHZ19B::serialWrite(uint8_t *txBuffer, uint8_t txLen)
 
         // Write serial data
         _serial->write(txBuffer, txLen);
+
         // Flush serial data
         _serial->flush();
     }
