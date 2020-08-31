@@ -39,7 +39,7 @@
 //! 3 minutes pre-heating time.
 //! Can be used when MCU is reset and sensor powered-up for >3 minutes.
 //! Recommended to disable for deployment to ensure warming-up timing.
-#define MHZ19B_SMART_WARMING_UP
+// #define MHZ19B_SMART_WARMING_UP
 
 //! 3 minutes warming-up time after power-on before valid data returned
 #define MHZ19B_WARMING_UP_TIME_MS       (3UL * 60000UL)
