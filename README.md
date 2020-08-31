@@ -286,11 +286,11 @@ More information about undocumented commands: https://revspace.nl/MH-Z19B.
 **NOTE:** Sending untested commands may damage the sensor permanently! Use at your own risk.
 
 ```c++
-uint8_t response[MHZ19B_RESPONSE_LENGTH];
 int16_t result;
 
-mhz19b.sendCommand(MHZ19B_CMD_NOT_DOCUMENTED, 0x00, 0x00, 0x00, 0x00, 0x00);
-result = mhz19b.receiveResponse(response, sizeof(response));
+result = mhz19b.sendCommand(MHZ19B_CMD_NOT_DOCUMENTED, 0x00, 0x00, 0x00, 0x00, 0x00);
+
+// 9 Bytes response is located in mhz19b.rxBuffer[9]
 ```
 
 

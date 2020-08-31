@@ -48,7 +48,7 @@
 #define MHZ19B_READ_INTERVAL_MS         (5UL * 1000UL)
 
 //! Fixed 9 Bytes response
-#define MHZ19B_RESPONSE_LENGTH          9
+#define MHZ19B_SERIAL_RX_BYTES          9
 
 //! Response timeout between 15..120 ms at 9600 baud works reliable for all commands
 #define MHZ19B_SERIAL_RX_TIMEOUT_MS     120
@@ -124,20 +124,15 @@ public:
     // Serial communication
     int8_t sendCommand(uint8_t cmd, byte b3=0, byte b4=0, byte b5=0, byte b6=0, byte b7=0);
 
+    // Global receive buffer
+    uint8_t rxBuffer[MHZ19B_SERIAL_RX_BYTES];
+
 private:
     Stream *_serial;
     unsigned long _tLastReadCO2;
-    uint8_t _cmd;
-    uint8_t _response[MHZ19B_RESPONSE_LENGTH];
 
     // Serial communication functions
-    int8_t receiveResponse(uint8_t *rxBuffer, uint8_t rxBufferLength);
     uint8_t calcCRC(uint8_t *data);
-
-    // Serial interface functions
-    int serialAvailable();
-    void serialWrite(uint8_t *txBuffer, uint8_t txLen);
-    void serialRead(uint8_t *rxBuffer, uint8_t rxLen);
 };
 
 #endif // ERRIEZ_MHZ19B_H_

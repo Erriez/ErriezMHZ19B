@@ -164,7 +164,7 @@ int16_t ErriezMHZ19B::readCO2()
 
     // Check result
     if (result == MHZ19B_RESULT_OK) {
-        result = (_response[2] << 8) | _response[3];
+        result = (rxBuffer[2] << 8) | rxBuffer[3];
     }
 
     return result;
@@ -201,7 +201,7 @@ int8_t ErriezMHZ19B::getVersion(char *version, uint8_t versionLen)
     if (result == MHZ19B_RESULT_OK) {
         // Copy 4 ASCII characters to version array like "0443"
         for (uint8_t i = 0; i < 4; i++) {
-            version[i] = _response[i + 2];
+            version[i] = rxBuffer[i + 2];
         };
     }
 
@@ -253,7 +253,8 @@ int16_t ErriezMHZ19B::getRange()
 
     // Check result
     if (result == MHZ19B_RESULT_OK) {
-        result = (_response[4] << 8) | _response[5];
+        // Range is in Bytes 4 and 5
+        result = (rxBuffer[4] << 8) | rxBuffer[5];
 
         // Check range according to documented specification
         if ((result != MHZ19B_RANGE_2000) && (result != MHZ19B_RANGE_5000)) {
@@ -274,7 +275,7 @@ int16_t ErriezMHZ19B::getRange()
  */
 int8_t ErriezMHZ19B::setAutoCalibration(bool calibrationOn)
 {
-    // Send command "Write Automatic Baseline Correction (ABC logic function)"
+    // Send command "Set Automatic Baseline Correction (ABC logic function)"
     return sendCommand(MHZ19B_CMD_SET_AUTO_CAL, (calibrationOn ? 0xA0 : 0x00));
 }
 
@@ -291,15 +292,16 @@ int8_t ErriezMHZ19B::getAutoCalibration()
 {
     int8_t result;
 
-    // Send command "Read Automatic Baseline Correction (ABC logic function)" (NOT DOCUMENTED)
+    // Send command "Get Automatic Baseline Correction (ABC logic function)" (NOT DOCUMENTED)
     result = sendCommand(MHZ19B_CMD_GET_AUTO_CAL);
 
     // Check result
     if (result == MHZ19B_RESULT_OK) {
-        if (_response[7] == 0x01) {
+        // Response is located in Byte 7
+        if (rxBuffer[7] == 0x01) {
             // On
             result = 1;
-        } else if (_response[7] == 0x00) {
+        } else if (rxBuffer[7] == 0x00) {
             // Off
             result = 0;
         }
@@ -324,79 +326,71 @@ int8_t ErriezMHZ19B::startZeroCalibration()
 }
 
 /*!
- * \brief Send serial command to sensor
+ * \brief Send serial command to sensor and read response
  * \details
- *      Send command to sensor. Then retrieve response from sensor with receiveResponse().
+ *      Send command to sensor and read response, protected with a receive timeout.
  * \param cmd
  *      Command Byte
  * \param b3
- *      Byte 3
+ *      Byte 3 (default 0)
  * \param b4
- *      Byte 4
+ *      Byte 4 (default 0)
  * \param b5
- *      Byte 5
+ *      Byte 5 (default 0)
  * \param b6
- *      Byte 6
+ *      Byte 6 (default 0)
  * \param b7
- *      Byte 7
+ *      Byte 7 (default 0)
  */
 int8_t ErriezMHZ19B::sendCommand(uint8_t cmd, byte b3, byte b4, byte b5, byte b6, byte b7)
 {
-    uint8_t txBuffer[9] = { 0xFF, 0x01, cmd, b3, b4, b5, b6, b7, calcCRC(txBuffer) };
-
-    // Save command for response verification
-    _cmd = cmd;
-
-    // Write data to sensor
-    serialWrite(txBuffer, sizeof(txBuffer));
-
-    // Read response
-    return receiveResponse(_response, sizeof(_response));
-}
-
-/*!
- * \brief Receive serial response from sensor
- * \param rxBuffer
- *      Receive buffer (must be 9 Bytes).
- * \param rxBufferLength
- *      Receive buffer size.
- * \return
- *      MH-Z19B response error codes.
- */
-int8_t ErriezMHZ19B::receiveResponse(uint8_t *rxBuffer, uint8_t rxBufferLength)
-{
+    uint8_t txBuffer[MHZ19B_SERIAL_RX_BYTES] = { 0xFF, 0x01, cmd, b3, b4, b5, b6, b7, 0x00 };
     int8_t result = MHZ19B_RESULT_OK;
     unsigned long tStart;
-    
-    // Argument check
-    if (rxBufferLength < MHZ19B_RESPONSE_LENGTH) {
-        return MHZ19B_RESULT_ARGUMENT_ERROR;
+
+    // Check serial initialized
+    if (_serial == nullptr) {
+        return MHZ19B_RESULT_ERROR;
     }
 
+    // Add CRC Byte
+    txBuffer[8] = calcCRC(txBuffer);
+
     // Clear receive buffer
-    memset(rxBuffer, 0, MHZ19B_RESPONSE_LENGTH);
-    
+    while (_serial->available()) {
+        _serial->read();
+    }
+
+    // Write serial data
+    _serial->write(txBuffer, sizeof(txBuffer));
+
+    // Flush serial data
+    _serial->flush();
+
+    // Clear receive buffer
+    memset(rxBuffer, 0, sizeof(rxBuffer));
+
     // Wait until all data received from sensor
     tStart = millis();
-    while (serialAvailable() < rxBufferLength) {
+    while (_serial->available() < MHZ19B_SERIAL_RX_BYTES) {
         if ((millis() - tStart) >= MHZ19B_SERIAL_RX_TIMEOUT_MS) {
             return MHZ19B_RESULT_ERR_TIMEOUT;
         }
     }
 
     // Read response from serial buffer
-    serialRead(rxBuffer, MHZ19B_RESPONSE_LENGTH);
-    
+    _serial->readBytes(rxBuffer, MHZ19B_SERIAL_RX_BYTES);
+
     // Check received Byte[0] == 0xFF and Byte[1] == transmit command
-    if ((rxBuffer[0] != 0xFF) || (rxBuffer[1] != _cmd)) {
+    if ((rxBuffer[0] != 0xFF) || (rxBuffer[1] != cmd)) {
         result = MHZ19B_RESULT_ERROR;
     }
-    
+
     // Check received Byte[8] CRC
     if (rxBuffer[8] != calcCRC(rxBuffer)) {
         result = MHZ19B_RESULT_ERR_CRC;
     }
-    
+
     // Return result
     return result;
 }
@@ -406,7 +400,7 @@ int8_t ErriezMHZ19B::receiveResponse(uint8_t *rxBuffer, uint8_t rxBufferLength)
 // ----------------------------------------------------------------------------
 
 /*!
- * \brief Calculate CRC
+ * \brief Calculate CRC on 8 data Bytes buffer
  * \param data
  *      Buffer pointer to calculate CRC.
  * \return
@@ -416,62 +410,13 @@ uint8_t ErriezMHZ19B::calcCRC(uint8_t *data)
 {
     byte crc = 0;
 
+    // Calculate CRC on 8 data Bytes
     for (uint8_t i = 1; i < 8; i++) {
         crc += data[i];
     }
     crc = 0xFF - crc;
     crc++;
 
+    // Return calculated CRC
     return crc;
-}
-
-/*!
- * \brief Get number of serial Bytes received
- * \return
- *      Number of Bytes in receive buffer.
- */
-int ErriezMHZ19B::serialAvailable()
-{
-    if (_serial) {
-        return _serial->available();
-    }
-
-    return 0;
-}
-
-/*!
- * \brief Write buffer to serial stream
- * \param txBuffer
- *      Transmit buffer pointer.
- * \param txLen
- *      Transmit buffer length in Bytes.
- */
-void ErriezMHZ19B::serialWrite(uint8_t *txBuffer, uint8_t txLen)
-{
-    if (_serial) {
-        // Clear receive buffer
-        while (_serial->available()) {
-            _serial->read();
-        }
-
-        // Write serial data
-        _serial->write(txBuffer, txLen);
-
-        // Flush serial data
-        _serial->flush();
-    }
-}
-
-/*!
- * \brief Read buffer from serial stream
- * \param rxBuffer
- *      Receive buffer pointer.
- * \param rxLen
- *      Receive buffer length.
- */
-void ErriezMHZ19B::serialRead(uint8_t *rxBuffer, uint8_t rxLen)
-{
-    if (_serial) {
-        _serial->readBytes(rxBuffer, rxLen);
-    }
 }
