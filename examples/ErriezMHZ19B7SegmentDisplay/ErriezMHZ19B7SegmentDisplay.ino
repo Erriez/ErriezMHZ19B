@@ -109,8 +109,9 @@ void setup()
     char firmwareVersion[5];
 
     // Initialize serial
+    delay(500);
     Serial.begin(115200);
-    Serial.println(F("Erriez MH-Z19B CO2 sensor example"));
+    Serial.println(F("\nErriez MH-Z19B CO2 sensor example"));
 
     // Initialize TM1637 display
     display.begin();
@@ -168,16 +169,21 @@ void loop()
 
         // Print result
         if (result < 0) {
-            display.overflow();
-
+            // Print to serial
             printErrorCode(result);
-        } else {
-            display.clear();
-            display.dec(result);
 
+            // Update display
+            display.overflow();
+        } else {
+            // Print to serial
             Serial.print(result);
             Serial.println(F(" ppm"));
 
+            // Update display
+            display.clear();
+            display.dec(result);
+
+            // Buzzer control
             if (result > 2000) {
                 buzzerBeep(3);
             } else if (result > 1500) {
