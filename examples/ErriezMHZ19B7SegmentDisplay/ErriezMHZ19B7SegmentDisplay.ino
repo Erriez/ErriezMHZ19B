@@ -41,17 +41,17 @@
 #elif defined(ARDUINO_ARCH_AVR)
     #define TM1637_CLK_PIN      2
     #define TM1637_DIO_PIN      3
-    #define MHZ19B_TX_PIN        4
-    #define MHZ19B_RX_PIN        5
+    #define MHZ19B_TX_PIN       4
+    #define MHZ19B_RX_PIN       5
     #define BUZZER_PIN          6
 
     #include <SoftwareSerial.h>          // Use software serial
     SoftwareSerial mhzSerial(MHZ19B_TX_PIN, MHZ19B_RX_PIN);
 #elif defined(ARDUINO_ARCH_ESP8266)
-    #define TM1637_CLK_PIN      D2
-    #define TM1637_DIO_PIN      D3
-    #define MHZ19B_TX_PIN        D5
-    #define MHZ19B_RX_PIN        D6
+    #define TM1637_CLK_PIN      D3
+    #define TM1637_DIO_PIN      D4
+    #define MHZ19B_TX_PIN       D5
+    #define MHZ19B_RX_PIN       D6
     #define BUZZER_PIN          D7
 
     #include <SoftwareSerial.h>          // Use software serial
@@ -59,8 +59,8 @@
 #elif defined(ARDUINO_ARCH_ESP32)
     #define TM1637_CLK_PIN      16
     #define TM1637_DIO_PIN      17
-    #define MHZ19B_TX_PIN        18
-    #define MHZ19B_RX_PIN        19
+    #define MHZ19B_TX_PIN       18
+    #define MHZ19B_RX_PIN       19
     #define BUZZER_PIN          4
 
     #include <SoftwareSerial.h>          // Use software serial
