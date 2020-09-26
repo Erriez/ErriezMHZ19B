@@ -25,6 +25,35 @@ compensation to measure CO2 concentration in air.
 * CRC checks on communication protocol and timeout handling
 * Interface for sending undocumented commands
 
+### Pins
+
+```c++
+// MH-Z19B front connector
+//     __     _______
+// +------------------+
+// |                  |
+// |   . . . . . . .  |
+// |   1 2 3 4 5 6 7  |
+// +------------------+
+//
+// Pin 1: Yellow  None
+// Pin 2: Green   UART (TXD) TTL Level Data Output  -> TO RXD
+// Pin 3: Blue    UART(RXD) TTL Level Data Input    -> TO TXD
+// Pin 4: Red     Positive Power Supply (Vin +5V)
+// Pin 5: Black   Negative Power Supply (GND)
+// Pin 6: White   None
+// Pin 7: Brown   Analog Output Vo (Not used)
+//
+// The following ESP8266 pins are reserved:
+//    TX/RX:  Serial (in use)
+//    A0:     Analog (cannot be used)
+//    D0-RST: Wake (cannot be used)
+//    D1/D2:  I2C (can be used when I2C not used)
+//    D3:     Output data flash (corrupts MH-Z19B on boot)
+//    D4:     Boot (in use by boot pin / LED)
+//    D5..D8: SPI <- Can be used when SPI not used
+```
+
 
 ## Tested Hardware
 
@@ -322,4 +351,3 @@ Please refer to the [Wiki](https://github.com/Erriez/ErriezArduinoLibrariesAndSk
 ## Other Arduino Libraries and Sketches from Erriez
 
 [Erriez Libraries and Sketches](https://github.com/Erriez/ErriezArduinoLibrariesAndSketches)
-
