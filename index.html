@@ -85,7 +85,8 @@ $(function() {
 <li>CRC checks on communication protocol and timeout handling</li>
 <li>Interface for sending undocumented commands</li>
 </ul>
-<h2>Tested Hardware</h2>
+<h3>Pins</h3>
+<div class="fragment"><div class="line">{c++}</div><div class="line">// MH-Z19B front connector</div><div class="line">//     __     _______</div><div class="line">// +------------------+</div><div class="line">// |                  |</div><div class="line">// |   . . . . . . .  |</div><div class="line">// |   1 2 3 4 5 6 7  |</div><div class="line">// +------------------+</div><div class="line">//</div><div class="line">// Pin 1: Yellow  None</div><div class="line">// Pin 2: Green   UART (TXD) TTL Level Data Output  -&gt; TO RXD</div><div class="line">// Pin 3: Blue    UART(RXD) TTL Level Data Input    -&gt; TO TXD</div><div class="line">// Pin 4: Red     Positive Power Supply (Vin +5V)</div><div class="line">// Pin 5: Black   Negative Power Supply (GND)</div><div class="line">// Pin 6: White   None</div><div class="line">// Pin 7: Brown   Analog Output Vo (Not used)</div><div class="line">//</div><div class="line">// The following ESP8266 pins are reserved:</div><div class="line">//    TX/RX:  Serial (in use)</div><div class="line">//    A0:     Analog (cannot be used)</div><div class="line">//    D0-RST: Wake (cannot be used)</div><div class="line">//    D1/D2:  I2C (can be used when I2C not used)</div><div class="line">//    D3:     Output data flash (corrupts MH-Z19B on boot)</div><div class="line">//    D4:     Boot (in use by boot pin / LED)</div><div class="line">//    D5..D8: SPI &lt;- Can be used when SPI not used</div></div><!-- fragment --><h2>Tested Hardware</h2>
 <p>The following targets are supported and tested:</p>
 <ul>
 <li>AVR: UNO, MINI, Pro Mini 8/16 MHz, ATMega2560, Leonardo</li>
