@@ -106,6 +106,9 @@ public:
     // Read CO2 value
     int16_t readCO2();
 
+    // Read temperature (signed 8-bit)
+    int8_t readTemperature();
+
     // Get firmware version (NOT DOCUMENTED)
     int8_t getVersion(char *version, uint8_t versionLen);
 

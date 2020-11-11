@@ -141,21 +141,34 @@ void setup()
 
 void loop()
 {
-    int16_t result;
+    int16_t co2;
+    int8_t temperature;
 
     // Minimum interval between CO2 reads is required
     if (mhz19b.isReady()) {
-        // Read CO2 concentration from sensor
-        result = mhz19b.readCO2();
+        // Read CO2 concentration
+        co2 = mhz19b.readCO2();
 
-        // Print result
-        if (result < 0) {
+        // Read temperature (signed 8-bit)
+        temperature = mhz19b.readTemperature();
+
+        // Check results
+        if (co2 < 0) {
             // An error occurred
-            printErrorCode(result);
-        } else {
-            // Print CO2 concentration in ppm
-            Serial.print(result);
-            Serial.println(F(" ppm"));
+            printErrorCode(co2);
+            return;
         }
+
+        if (temperature < 0) {
+            // An error occurred
+            printErrorCode(temperature);
+            return;
+        }
+
+        // Print results
+        Serial.print(co2);
+        Serial.print(F(" ppm, "));
+        Serial.print(temperature);
+        Serial.println(F(" C"));
     }
 }

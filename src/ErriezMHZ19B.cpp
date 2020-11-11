@@ -175,6 +175,29 @@ int16_t ErriezMHZ19B::readCO2()
 }
 
 /*!
+ * \brief Read temperature
+ * \details
+ *      Reading the temperature is an undocumented command
+ * \return
+ *      8-bit signed temperature
+ */
+int8_t ErriezMHZ19B::readTemperature()
+{
+    int8_t result;
+
+    // Send command "Read CO2 concentration"
+    result = sendCommand(MHZ19B_CMD_READ_CO2);
+
+    // Check result
+    if (result == MHZ19B_RESULT_OK) {
+        // 8-bit signed temperature (UNDOCUMENTED)
+        result = rxBuffer[4] - 40;
+    }
+
+    return result;
+}
+
+/*!
  * \brief Get firmware version (NOT DOCUMENTED)
  * \details
  *      This is an undocumented command, but most sensors returns ASCII "0430 or "0443".
