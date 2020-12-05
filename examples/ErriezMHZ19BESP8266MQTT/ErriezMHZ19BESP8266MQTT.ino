@@ -36,8 +36,8 @@
 #include <ErriezMHZ19B.h>       // https://github.com/Erriez/ErriezMHZ19B
 
 // Pin defines
-#define MHZ19B_TX_PIN       D5
-#define MHZ19B_RX_PIN       D6
+#define MHZ19B_RX_PIN       D5
+#define MHZ19B_TX_PIN       D6
 
 // WiFi configuration
 #define WIFI_SSID1          ""
@@ -55,7 +55,7 @@
 #define MQTT_PUB_SEC        60
 
 // Software serial for MH-Z19B
-SoftwareSerial mhzSerial(MHZ19B_TX_PIN, MHZ19B_RX_PIN);
+SoftwareSerial mhzSerial(MHZ19B_RX_PIN, MHZ19B_TX_PIN);
 
 // MH-Z19B
 ErriezMHZ19B mhz19b(&mhzSerial);

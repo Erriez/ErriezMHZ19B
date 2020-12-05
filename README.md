@@ -160,11 +160,11 @@ library contains a naming conflict with existing `SoftwareSerial.h` built-in lib
 #include <SoftwareSerial.h>
 
 // Pin defines
-#define MHZ19B_TX_PIN        4
-#define MHZ19B_RX_PIN        5
+#define MHZ19B_RX_PIN        4
+#define MHZ19B_TX_PIN        5
 
 // Create software serial object
-SoftwareSerial mhzSerial(MHZ19B_TX_PIN, MHZ19B_RX_PIN);
+SoftwareSerial mhzSerial(MHZ19B_RX_PIN, MHZ19B_TX_PIN);
 
 // Create MHZ19B object with software serial
 ErriezMHZ19B mhz19b(&mhzSerial);
