@@ -79,7 +79,7 @@ The following targets are supported and tested:
 ## Documentation
 
 - [Online HTML](https://erriez.github.io/ErriezMHZ19B)
-- [Doxygen PDF](https://github.com/Erriez/ErriezMHZ19B/raw/master/ErriezMHZ19B.pdf)
+- [Doxygen PDF](https://github.com/Erriez/ErriezMHZ19B/blob/gh-pages/ErriezMHZ19B.pdf)
 - [Datasheet PDF](https://github.com/Erriez/ErriezMHZ19B/blob/master/extras/mh-z19b-co2-ver1_0.pdf)
 
 
