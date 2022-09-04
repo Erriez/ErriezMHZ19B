@@ -4,12 +4,12 @@
 [![Open issue](https://shields.io/github/issues-raw/Erriez/ErriezMHZ19B)](https://github.com/Erriez/ErriezMHZ19B/issues)
 [![PlatformIO CI](https://github.com/Erriez/ErriezMHZ19B/actions/workflows/actions.yml/badge.svg)](https://github.com/Erriez/ErriezMHZ19B/actions/workflows/actions.yml)
 
-# Erriez MH-Z19B CO2 sensor library for Arduino
+# Erriez MH-Z19B/C CO2 sensor library for Arduino
 
-This is a MH-Z19B CO2 sensor library for Arduino. It has been built from scratch to support hardware 
+This is a MH-Z19B / MH-Z19C CO2 sensor library for Arduino. It has been built from scratch to support hardware 
 and software serial with a small footprint.
 
-The MH-Z19B is a NDIR (Non-Dispersive Infrared) type gas sensor with built-in temperature
+The MH-Z19 is a NDIR (Non-Dispersive Infrared) type gas sensor with built-in temperature
 compensation to measure CO2 concentration in air.
 
 ![MHZ19B](https://raw.githubusercontent.com/Erriez/ErriezMHZ19B/master/extras/MHZ19B.png)

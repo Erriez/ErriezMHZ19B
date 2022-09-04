@@ -1,7 +1,7 @@
 {
     "name": "ErriezMHZ19B",
     "version": "1.0.0",
-    "keywords": "arduino, library, mh-z19b, mhz19b, co2, sensor, air, quality, uno, atmega328, esp8266, esp32, due, serial, hardware, documentation, examples, erriez",
+    "keywords": "arduino, library, mh-z19b, mhz19b, mh-z19c, mhz19c, co2, sensor, air, quality, uno, atmega328, esp8266, esp32, due, serial, hardware, documentation, examples, erriez",
     "description": "This is a MH-Z19B CO2 gas sensor library for Arduino with hardware and software serial support in a small memory footprint.<br />The supported sensor is a NDIR (Non-Dispersive Infrared) type with built-in temperature compensation for high accuracy.",
     "homepage": "https://github.com/Erriez/ErriezArduinoLibrariesAndSketches",
     "license": "MIT",

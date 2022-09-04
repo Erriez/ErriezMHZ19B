@@ -1,5 +1,5 @@
 #######################################
-# Syntax Coloring Map For Erriez MH-Z19B sensor library
+# Syntax Coloring Map For Erriez MH-Z19B/C sensor library
 #######################################
 
 #######################################
