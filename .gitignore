@@ -32,4 +32,5 @@
 *.app
 
 .idea/
-platformio/
+.venv/
+docs/

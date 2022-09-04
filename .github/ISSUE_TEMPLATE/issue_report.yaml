@@ -1,0 +1,114 @@
+name: Issue report
+description: Report issues
+labels: ["Awaiting triage"]
+assignees: self
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report an issue!
+        * Before reporting a new issue please check and search in [List of existing issues](https://github.com/Erriez/ErriezMHZ19B/issues?q=is%3Aissue) 
+        * Please check [Online Documentation](https://github.com/Erriez/ErriezMHZ19B/blob/master/README.md)
+  
+  - type: input
+    id: board
+    attributes:
+      label: Board
+      description: On which Board does this issue occur?
+      placeholder: ex. Arduino Uno, Mini, Leonardo, Mega2560, DUE, ESP8266 NodeMCU, ESP32-S2...
+    validations:
+      required: true
+  
+  - type: textarea
+    id: hardware
+    attributes:
+      label: Hardware setup
+      description: What kind of hardware is attached to the chip?
+      placeholder: ex. Exact sensor/device types, etc. If your hardware is custom or unusual, please attach a photo.
+    validations:
+       required: true
+  
+  - type: dropdown
+    id: version
+    attributes:
+      label: Version
+      description: What version of this library is used? Please consider to update to the latest version when possible.
+      options:
+        - latest master (checkout manually)
+        - v1.0.0
+        - other
+    validations:
+      required: true
+  
+  - type: input
+    id: IDE
+    attributes:
+      label: IDE Name
+      description: What IDE are you using?
+      placeholder: ex. Arduino IDE, PlatformIO, etc...
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Please describe your problem here and expected behaviour.
+      placeholder: ex. Build error, weird or wrong behaviour, etc..
+    validations:
+      required: true
+
+  - type: textarea
+    id: testcase
+    attributes:
+      label: Testcase
+      description: Please describe exact steps to reproduce your problem.
+      placeholder: ex. 1. Build example XYZ, 2. Run on the board, 3. Send message..., etc
+    validations:
+      required: true
+
+  - type: textarea
+    id: sketch
+    attributes:
+      label: Sketch
+      description: Please provide full minimal sketch/code which can be run to reproduce your issue.
+      placeholder: ex. Related part of the code to replicate the issue
+      render: cpp
+    validations:
+     required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: Please provide a logs or error message.
+      placeholder: When possible, enable Core debug level - Debug on tools menu of Arduino IDE, then put the serial output here.
+      render: plain
+    validations:
+      required: true 
+
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: Checks
+      description: You agree to check all the resources above before opening a new issue.
+      options:
+        - label: I confirm I have checked existing issues, online documentation and latest version when possible.
+          required: true
+      options:
+        - label: I understand that this library is maintained by volunteers in spare time. Response time may vary.
+          required: true
+          
+  - type: checkboxes
+    id: restrictions
+    attributes:
+      label: Export restrictions.
+      description: The owner of this repository Erriez included an explict export restriction to Russia.
+      options:
+        - label: I accept [End User Agreement](https://github.com/Erriez/ErriezMHZ19B/blob/master/END_USER_AGREEMENT.md).
+          required: true
+
+  - type: markdown
+    attributes:
+      value: Thanks for your contribution!

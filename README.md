@@ -1,11 +1,15 @@
-# Erriez MH-Z19B CO2 sensor library for Arduino
+[![Licence MIT](https://img.shields.io/badge/license-MIT-green)](https://github.com/Erriez/ErriezMHZ19B/blob/master/LICENSE)
+[![Language C/C++](https://img.shields.io/badge/language-C%2FC%2B%2B-informational)](https://github.com/Erriez/ErriezMHZ19B)
+[![Release tag](https://img.shields.io/github/v/release/Erriez/ErriezMHZ19B?display_name=tag)](https://github.com/Erriez/ErriezMHZ19B/releases)
+[![Open issue](https://shields.io/github/issues-raw/Erriez/ErriezMHZ19B)](https://github.com/Erriez/ErriezMHZ19B/issues)
+[![PlatformIO CI](https://github.com/Erriez/ErriezMHZ19B/actions/workflows/actions.yml/badge.svg)](https://github.com/Erriez/ErriezMHZ19B/actions/workflows/actions.yml)
 
-[![Build Status](https://travis-ci.org/Erriez/ErriezMHZ19B.svg?branch=master)](https://travis-ci.org/Erriez/ErriezMHZ19B)
+# Erriez MH-Z19B/C CO2 sensor library for Arduino
 
-This is a MH-Z19B CO2 sensor library for Arduino. It has been built from scratch to support hardware 
+This is a MH-Z19B / MH-Z19C CO2 sensor library for Arduino. It has been built from scratch to support hardware 
 and software serial with a small footprint.
 
-The MH-Z19B is a NDIR (Non-Dispersive Infrared) type gas sensor with built-in temperature
+The MH-Z19 is a NDIR (Non-Dispersive Infrared) type gas sensor with built-in temperature
 compensation to measure CO2 concentration in air.
 
 ![MHZ19B](https://raw.githubusercontent.com/Erriez/ErriezMHZ19B/master/extras/MHZ19B.png)
@@ -75,7 +79,7 @@ The following targets are supported and tested:
 ## Documentation
 
 - [Online HTML](https://erriez.github.io/ErriezMHZ19B)
-- [Doxygen PDF](https://github.com/Erriez/ErriezMHZ19B/raw/master/ErriezMHZ19B.pdf)
+- [Doxygen PDF](https://github.com/Erriez/ErriezMHZ19B/blob/gh-pages/ErriezMHZ19B.pdf)
 - [Datasheet PDF](https://github.com/Erriez/ErriezMHZ19B/blob/master/extras/mh-z19b-co2-ver1_0.pdf)
 
 
@@ -351,3 +355,15 @@ Please refer to the [Wiki](https://github.com/Erriez/ErriezArduinoLibrariesAndSk
 ## Other Arduino Libraries and Sketches from Erriez
 
 [Erriez Libraries and Sketches](https://github.com/Erriez/ErriezArduinoLibrariesAndSketches)
+
+
+## MIT License
+
+This project is published under [MIT license](https://github.com/Erriez/ErriezMHZ19B/blob/master/LICENSE)
+with an additional end user agreement (next section).
+
+
+## End User Agreement :ukraine:
+
+End users shall accept the [End User Agreement](https://github.com/Erriez/ErriezMHZ19B/blob/master/END_USER_AGREEMENT.md)
+holding export restrictions to Russia to stop the WAR before using this project.
