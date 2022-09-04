@@ -1,6 +1,10 @@
-# Erriez MH-Z19B CO2 sensor library for Arduino
+[![Licence MIT](https://img.shields.io/badge/license-MIT-green)](https://github.com/Erriez/ErriezMHZ19B/blob/master/LICENSE)
+[![Language C/C++](https://img.shields.io/badge/language-C%2FC%2B%2B-informational)](https://github.com/Erriez/ErriezMHZ19B)
+[![Release tag](https://img.shields.io/github/v/release/Erriez/ErriezMHZ19B?display_name=tag)](https://github.com/Erriez/ErriezMHZ19B/releases)
+[![Open issue](https://shields.io/github/issues-raw/Erriez/ErriezMHZ19B)](https://github.com/Erriez/ErriezMHZ19B/issues)
+[![PlatformIO CI](https://github.com/Erriez/ErriezMHZ19B/actions/workflows/actions.yml/badge.svg)](https://github.com/Erriez/ErriezMHZ19B/actions/workflows/actions.yml)
 
-[![Build Status](https://travis-ci.org/Erriez/ErriezMHZ19B.svg?branch=master)](https://travis-ci.org/Erriez/ErriezMHZ19B)
+# Erriez MH-Z19B CO2 sensor library for Arduino
 
 This is a MH-Z19B CO2 sensor library for Arduino. It has been built from scratch to support hardware 
 and software serial with a small footprint.
