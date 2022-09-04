@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - master
-      - staging/erriez/*
   pull_request:
      branches:
       - master
