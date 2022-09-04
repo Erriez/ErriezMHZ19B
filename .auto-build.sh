@@ -61,19 +61,22 @@ function autobuild()
     pio pkg install --global --library https://github.com/Erriez/ErriezRobotDyn4DigitDisplay
     pio pkg install --global --library https://github.com/knolleary/pubsubclient
 
-    echo "Install ESPSoftwareSerial into framework-arduinoespressif32 to prevent conflicts with generic name SoftwareSerial"
-    mkdir -p ~/.platformio/packages/framework-arduinoespressif32/libraries
-    platformio lib --storage-dir ~/.platformio/packages/framework-arduinoespressif32/libraries install "EspSoftwareSerial@6.16.1"
-    # Cannot upgrade to pio pkg install command: https://github.com/platformio/platformio-core/issues/4410
-    #pio pkg install --storage-dir ~/.platformio/packages/framework-arduinoespressif32/libraries --library "EspSoftwareSerial@6.16.1"
-    
-    echo "Building examples..."
+    echo "Building AVR, ARM and ESP8266 examples..."
 
-    # Use option -O "lib_ldf_mode=chain+" to parse defines
-    pio ci -O "lib_ldf_mode=chain+" --lib="." ${BOARDS_AVR} ${BOARDS_ARM} ${BOARDS_ESP8266} ${BOARDS_ESP32} examples/ErriezMHZ19B7SegmentDisplay/ErriezMHZ19B7SegmentDisplay.ino
-    pio ci -O "lib_ldf_mode=chain+" --lib="." ${BOARDS_AVR} ${BOARDS_ARM} ${BOARDS_ESP8266} ${BOARDS_ESP32} examples/ErriezMHZ19BGettingStarted/ErriezMHZ19BGettingStarted.ino
-    pio ci -O "lib_ldf_mode=chain+" --lib="." ${BOARDS_AVR} ${BOARDS_ARM} ${BOARDS_ESP8266} ${BOARDS_ESP32} examples/ErriezMHZ19BSerialPlottter/ErriezMHZ19BSerialPlottter.ino
-    pio ci -O "lib_ldf_mode=chain+" --lib="."                             ${BOARDS_ESP8266}                 examples/ErriezMHZ19BESP8266MQTT/ErriezMHZ19BESP8266MQTT.ino
+    # Use option -O "lib_ldf_mode=chain+" to parse macro's
+    pio ci -O "lib_ldf_mode=chain+" --lib="." ${BOARDS_AVR} ${BOARDS_ARM} ${BOARDS_ESP8266} examples/ErriezMHZ19B7SegmentDisplay/ErriezMHZ19B7SegmentDisplay.ino
+    pio ci -O "lib_ldf_mode=chain+" --lib="." ${BOARDS_AVR} ${BOARDS_ARM} ${BOARDS_ESP8266} examples/ErriezMHZ19BGettingStarted/ErriezMHZ19BGettingStarted.ino
+    pio ci -O "lib_ldf_mode=chain+" --lib="." ${BOARDS_AVR} ${BOARDS_ARM} ${BOARDS_ESP8266} examples/ErriezMHZ19BSerialPlottter/ErriezMHZ19BSerialPlottter.ino
+    pio ci -O "lib_ldf_mode=chain+" --lib="."                             ${BOARDS_ESP8266} examples/ErriezMHZ19BESP8266MQTT/ErriezMHZ19BESP8266MQTT.ino
+
+    # Install ESP32 libraries and build
+    # Note: Library EspSoftwareSerial can only be used for ESP8266 and ESP32 and results in build errors on other platforms!
+    # Issue: https://github.com/platformio/platformio-core/issues/4410
+    pio pkg install --global --library "EspSoftwareSerial@6.16.1"
+    pio ci -O "lib_ldf_mode=chain+" --lib="." ${BOARDS_ESP32} examples/ErriezMHZ19B7SegmentDisplay/ErriezMHZ19B7SegmentDisplay.ino
+    pio ci -O "lib_ldf_mode=chain+" --lib="." ${BOARDS_ESP32} examples/ErriezMHZ19BGettingStarted/ErriezMHZ19BGettingStarted.ino
+    pio ci -O "lib_ldf_mode=chain+" --lib="." ${BOARDS_ESP32} examples/ErriezMHZ19BSerialPlottter/ErriezMHZ19BSerialPlottter.ino
+    pio pkg uninstall --global --library "EspSoftwareSerial@6.16.1"
 }
 
 function generate_doxygen()
