@@ -1,0 +1,80 @@
+name: Feature request
+description: Suggest an idea for this project
+labels: ["Type: Feature request"]
+assignees: self
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to request a feature or suggest a new idea!
+        * Before reporting a feature please check and search in [List of existing issues](https://github.com/Erriez/ErriezMHZ19B/issues?q=is%3Aissue) 
+        * Please check [Online Documentation](https://github.com/Erriez/ErriezMHZ19B/blob/master/README.md)
+  
+  - type: input
+    id: feature
+    attributes:
+      label: Feature request
+      description: Please briefly explain your feature request.
+      placeholder: eg. Missing / add board support, specific peripheral...
+    validations:
+      required: true
+
+  - type: textarea
+    id: hardware
+    attributes:
+      label: Hardware setup
+      description: What kind should this feature work on?
+      placeholder: ex. Arduino UNO, DUE, ESP8266, ESP32...
+    validations:
+       required: true
+
+  - type: textarea
+    id: related
+    attributes:
+      label: Is your feature request related to a problem?
+      description: Please provide a clear and concise description of what the problem is. Add relevant issue link.
+      placeholder: ex. Related issue ID...
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Describe the solution you'd like
+      description: Please provide a clear and concise description of what you want to happen.
+      placeholder: ex. When using this function...
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Please add any other context or screenshots about the feature request here.
+      placeholder: ex. This would work only when ...
+
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: Checks
+      description: You agree to check all the resources above before opening a new feature request.
+      options:
+        - label: I confirm I have checked existing issues, online documentation and latest version when possible.
+          required: true
+      options:
+        - label: I understand that this library is maintained by volunteers in spare time. Response time may vary.
+          required: true
+          
+  - type: checkboxes
+    id: restrictions
+    attributes:
+      label: Export restrictions.
+      description: The owner of this repository Erriez included an explict export restriction to Russia.
+      options:
+        - label: I accept [End User Agreement](https://github.com/Erriez/ErriezMHZ19B/blob/master/END_USER_AGREEMENT.md).
+          required: true
+
+  - type: markdown
+    attributes:
+      value: Thanks for your contribution!

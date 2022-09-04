@@ -355,3 +355,15 @@ Please refer to the [Wiki](https://github.com/Erriez/ErriezArduinoLibrariesAndSk
 ## Other Arduino Libraries and Sketches from Erriez
 
 [Erriez Libraries and Sketches](https://github.com/Erriez/ErriezArduinoLibrariesAndSketches)
+
+
+## MIT License
+
+This project is published under [MIT license](https://github.com/Erriez/ErriezMHZ19B/blob/master/LICENSE)
+with an additional end user agreement (next section).
+
+
+## End User Agreement :ukraine:
+
+End users shall accept the [End User Agreement](https://github.com/Erriez/ErriezMHZ19B/blob/master/END_USER_AGREEMENT.md)
+holding export restrictions to Russia to stop the WAR before using this project.

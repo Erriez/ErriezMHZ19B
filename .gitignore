@@ -32,4 +32,5 @@
 *.app
 
 .idea/
+.venv/
 docs/
