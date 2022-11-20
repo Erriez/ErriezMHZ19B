@@ -139,6 +139,11 @@ void setup()
     mhz19b.getVersion(firmwareVersion, sizeof(firmwareVersion));
     Serial.println(firmwareVersion);
 
+    // Optional: Set CO2 range 2000ppm or 5000ppm (default) once
+    // Serial.print(F("Set range..."));
+    // mhz19b.setRange2000ppm();
+    // mhz19b.setRange5000ppm();
+
     // Print operating range
     Serial.print(F("  Range: "));
     Serial.print(mhz19b.getRange());
