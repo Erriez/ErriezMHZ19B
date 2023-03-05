@@ -31,8 +31,9 @@ compensation to measure CO2 concentration in air.
 
 ### Pins
 
+WARNING: The pins between MH-Z19B and MH-Z19C are different. See tables below: 
+
 ```c++
-// MH-Z19B front connector
 //     __     _______
 // +------------------+
 // |                  |
@@ -40,13 +41,23 @@ compensation to measure CO2 concentration in air.
 // |   1 2 3 4 5 6 7  |
 // +------------------+
 //
-// Pin 1: Yellow  None
-// Pin 2: Green   UART (TXD) TTL Level Data Output  -> TO RXD
-// Pin 3: Blue    UART(RXD) TTL Level Data Input    -> TO TXD
-// Pin 4: Red     Positive Power Supply (Vin +5V)
-// Pin 5: Black   Negative Power Supply (GND)
-// Pin 6: White   None
-// Pin 7: Brown   Analog Output Vo (Not used)
+// MH-Z19B front connector:
+//   Pin 1: Yellow  None
+//   Pin 2: Green   UART (TXD) TTL Level Data Output  -> TO RXD
+//   Pin 3: Blue    UART (RXD) TTL Level Data Input   -> TO TXD
+//   Pin 4: Red     Positive Power Supply (Vin +5V)
+//   Pin 5: Black   Negative Power Supply (GND)
+//   Pin 6: White   None
+//   Pin 7: Brown   Analog Output Vo (Not used)
+//
+// MH-Z19C front connector:
+//   Pin 1: PWM
+//   Pin 2: UART (TXD) TTL Level data output  -> TO RXD
+//   Pin 3: UART (RXD) TTL Level data input   -> TO TXD
+//   Pin 4: Positive Power Supply (Vin +5V)
+//   Pin 5: Negative Power Supply (GND)
+//   Pin 6: Analog Output Vo
+//   Pin 7: HD (Hand-operated calibration)
 //
 // The following ESP8266 pins are reserved:
 //    TX/RX:  Serial (in use)
@@ -80,7 +91,8 @@ The following targets are supported and tested:
 
 - [Online HTML](https://erriez.github.io/ErriezMHZ19B)
 - [Doxygen PDF](https://github.com/Erriez/ErriezMHZ19B/blob/gh-pages/ErriezMHZ19B.pdf)
-- [Datasheet PDF](https://github.com/Erriez/ErriezMHZ19B/blob/master/extras/mh-z19b-co2-ver1_0.pdf)
+- [MH-Z19B datasheet PDF](https://github.com/Erriez/ErriezMHZ19B/blob/master/extras/mh-z19b-co2-ver1_0.pdf)
+- [MH-Z19C datasheet PDF](https://github.com/Erriez/ErriezMHZ19B/blob/master/extras/mh-z19c-co2-ver1_21.pdf)
 
 
 ## CO2 Concentrations
@@ -131,7 +143,7 @@ The status can be read with function `getAutoCalibration()`.
 For simplicity, this library uses the terminology `Automatic Calibration` which is identical to the
 `ABC (Automatic Baseline Correction) logic on/off` mentioned in the datasheet.
 
-### 2. Manual Calibration (400ppm)
+### 2. Manual ZERO Calibration (400ppm)
 
 Procedure for manual calibration at 400ppm:
 
@@ -144,13 +156,21 @@ Procedure for manual calibration at 400ppm:
 
 Now the sensor is calibrated. Repeat the sequence more often for higher accuracy.
 
-### 3. Manual Calibration (SPAN)
+### 3. MH-Z19B only: Manual SPAN Calibration
 
-The datasheet also mentions a command `0x88 Span Point Calibration`. The calibration procedure is
-not clear and therefore not implemented in this library.
+The SPAN point calibration procedure is not implemented in this library as it requires special
+calibration equipment. This functionality is not available in MH-Z19C.
 
+### 4. MH-Z19C only: Hand-operated calibration
 
-## MH-Z19B API
+Procedure according to the MH-Z19C datasheet: 
+- Connect module’s HD pin to low level(0V), lasting for 7 seconds at least.
+- Before calibrating the zero point, please ensure that the sensor is stable for more than 20 
+  minutes at 400ppm ambient environment.
+- The application is responsible to control the external MH-Z19C HD pin and is not available on
+  the MH-Z19B. 
+
+## MH-Z19B/C API
 
 **Initialization Software Serial**
 
