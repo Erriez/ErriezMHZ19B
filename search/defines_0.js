@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['mhz19b_5fcmd_5fcal_5fspan_5fpiont_63',['MHZ19B_CMD_CAL_SPAN_PIONT',['../_erriez_m_h_z19_b_8h.html#a7b6ce9d69bb04580774122443b6b3903',1,'ErriezMHZ19B.h']]],
+  ['mhz19b_5fcmd_5fcal_5fspan_5fpoint_63',['MHZ19B_CMD_CAL_SPAN_POINT',['../_erriez_m_h_z19_b_8h.html#ad400ef8b69f09c95f5dcf455a499ff12',1,'ErriezMHZ19B.h']]],
   ['mhz19b_5fcmd_5fcal_5fzero_5fpoint_64',['MHZ19B_CMD_CAL_ZERO_POINT',['../_erriez_m_h_z19_b_8h.html#ac5d5d4aeb9ad7e3a4cad953b7c85155a',1,'ErriezMHZ19B.h']]],
   ['mhz19b_5fcmd_5fget_5fauto_5fcal_65',['MHZ19B_CMD_GET_AUTO_CAL',['../_erriez_m_h_z19_b_8h.html#abf3af3c3ec652bbaaefe8981fbb0a6dd',1,'ErriezMHZ19B.h']]],
   ['mhz19b_5fcmd_5fget_5frange_66',['MHZ19B_CMD_GET_RANGE',['../_erriez_m_h_z19_b_8h.html#a46bf6991cf732c2dde907969359f3002',1,'ErriezMHZ19B.h']]],

@@ -88,8 +88,8 @@ $(function() {
 <li>Interface for sending undocumented commands</li>
 </ul>
 <h3>Pins</h3>
+<p>WARNING: The pins between MH-Z19B and MH-Z19C are different. See tables below:</p>
 <div class="fragment"><div class="line"> {c++}</div>
-<div class="line">// MH-Z19B front connector</div>
 <div class="line">//     __     _______</div>
 <div class="line">// +------------------+</div>
 <div class="line">// |                  |</div>
@@ -97,13 +97,23 @@ $(function() {
 <div class="line">// |   1 2 3 4 5 6 7  |</div>
 <div class="line">// +------------------+</div>
 <div class="line">//</div>
-<div class="line">// Pin 1: Yellow  None</div>
-<div class="line">// Pin 2: Green   UART (TXD) TTL Level Data Output  -&gt; TO RXD</div>
-<div class="line">// Pin 3: Blue    UART(RXD) TTL Level Data Input    -&gt; TO TXD</div>
-<div class="line">// Pin 4: Red     Positive Power Supply (Vin +5V)</div>
-<div class="line">// Pin 5: Black   Negative Power Supply (GND)</div>
-<div class="line">// Pin 6: White   None</div>
-<div class="line">// Pin 7: Brown   Analog Output Vo (Not used)</div>
+<div class="line">// MH-Z19B front connector:</div>
+<div class="line">//   Pin 1: Yellow  None</div>
+<div class="line">//   Pin 2: Green   UART (TXD) TTL Level Data Output  -&gt; TO RXD</div>
+<div class="line">//   Pin 3: Blue    UART (RXD) TTL Level Data Input   -&gt; TO TXD</div>
+<div class="line">//   Pin 4: Red     Positive Power Supply (Vin +5V)</div>
+<div class="line">//   Pin 5: Black   Negative Power Supply (GND)</div>
+<div class="line">//   Pin 6: White   None</div>
+<div class="line">//   Pin 7: Brown   Analog Output Vo (Not used)</div>
+<div class="line">//</div>
+<div class="line">// MH-Z19C front connector:</div>
+<div class="line">//   Pin 1: PWM</div>
+<div class="line">//   Pin 2: UART (TXD) TTL Level data output  -&gt; TO RXD</div>
+<div class="line">//   Pin 3: UART (RXD) TTL Level data input   -&gt; TO TXD</div>
+<div class="line">//   Pin 4: Positive Power Supply (Vin +5V)</div>
+<div class="line">//   Pin 5: Negative Power Supply (GND)</div>
+<div class="line">//   Pin 6: Analog Output Vo</div>
+<div class="line">//   Pin 7: HD (Hand-operated calibration)</div>
 <div class="line">//</div>
 <div class="line">// The following ESP8266 pins are reserved:</div>
 <div class="line">//    TX/RX:  Serial (in use)</div>
@@ -131,7 +141,8 @@ $(function() {
 <ul>
 <li><a href="https://erriez.github.io/ErriezMHZ19B">Online HTML</a></li>
 <li><a href="https://github.com/Erriez/ErriezMHZ19B/blob/gh-pages/ErriezMHZ19B.pdf">Doxygen PDF</a></li>
-<li><a href="https://github.com/Erriez/ErriezMHZ19B/blob/master/extras/mh-z19b-co2-ver1_0.pdf">Datasheet PDF</a></li>
+<li><a href="https://github.com/Erriez/ErriezMHZ19B/blob/master/extras/mh-z19b-co2-ver1_0.pdf">MH-Z19B datasheet PDF</a></li>
+<li><a href="https://github.com/Erriez/ErriezMHZ19B/blob/master/extras/mh-z19c-co2-ver1_21.pdf">MH-Z19C datasheet PDF</a></li>
 </ul>
 <h2>CO2 Concentrations</h2>
 <p>The table below displays the human impact of CO2:</p>
@@ -172,7 +183,7 @@ $(function() {
 <p>The status can be read with function <code>getAutoCalibration()</code>.</p>
 <p><b>Note:</b> <br  />
  For simplicity, this library uses the terminology <code>Automatic Calibration</code> which is identical to the <code>ABC (Automatic Baseline Correction) logic on/off</code> mentioned in the datasheet.</p>
-<h3>2. Manual Calibration (400ppm)</h3>
+<h3>2. Manual ZERO Calibration (400ppm)</h3>
 <p>Procedure for manual calibration at 400ppm:</p>
 <ul>
 <li>Turn automatic calibration off.</li>
@@ -180,9 +191,15 @@ $(function() {
 <li>Call <code>startZeroCalibration()</code> once. This will send command <code>0x87 Zero Point Calibration</code>, but is not a zero calibration as stated in the datasheet. There is no nitrogen needed as this calibration is performed at 400ppm.</li>
 </ul>
 <p>Now the sensor is calibrated. Repeat the sequence more often for higher accuracy.</p>
-<h3>3. Manual Calibration (SPAN)</h3>
-<p>The datasheet also mentions a command <code>0x88 Span Point Calibration</code>. The calibration procedure is not clear and therefore not implemented in this library.</p>
-<h2>MH-Z19B API</h2>
+<h3>3. MH-Z19B only: Manual SPAN Calibration</h3>
+<p>The SPAN point calibration procedure is not implemented in this library as it requires special calibration equipment. This functionality is not available in MH-Z19C.</p>
+<h3>4. MH-Z19C only: Hand-operated calibration</h3>
+<p>Procedure according to the MH-Z19C datasheet:</p><ul>
+<li>Connect module’s HD pin to low level(0V), lasting for 7 seconds at least.</li>
+<li>Before calibrating the zero point, please ensure that the sensor is stable for more than 20 minutes at 400ppm ambient environment.</li>
+<li>The application is responsible to control the external MH-Z19C HD pin and is not available on the MH-Z19B.</li>
+</ul>
+<h2>MH-Z19B/C API</h2>
 <p><b>Initialization Software Serial</b></p>
 <p>Use a Software Serial when no hardware serial is available. Sometimes a 3rd party library is required, for example for ESP32 targets by installing <code>ESPSoftwareSerial</code>. It must be installed into <code>.arduino15/packages/esp32/hardware/esp32/&lt;version&gt;/libraries/EspSoftwareSerial</code>, because the library contains a naming conflict with existing <code>SoftwareSerial.h</code> built-in libraries.</p>
 <div class="fragment"><div class="line"> {c++}</div>
