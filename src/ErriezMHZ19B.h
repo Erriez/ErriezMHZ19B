@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020-2022 Erriez
+ * Copyright (c) 2020-2023 Erriez
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -57,7 +57,7 @@
 #define MHZ19B_CMD_SET_AUTO_CAL         0x79 //!< Command set auto calibration on/off
 #define MHZ19B_CMD_READ_CO2             0x86 //!< Command read CO2 concentration
 #define MHZ19B_CMD_CAL_ZERO_POINT       0x87 //!< Command calibrate zero point at 400ppm
-#define MHZ19B_CMD_CAL_SPAN_PIONT       0x88 //!< Command calibrate span point (NOT IMPLEMENTED)
+#define MHZ19B_CMD_CAL_SPAN_POINT       0x88 //!< Command calibrate span point (NOT IMPLEMENTED)
 #define MHZ19B_CMD_SET_RANGE            0x99 //!< Command set detection range
 
 // Not documented commands
