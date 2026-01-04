@@ -1,5 +1,7 @@
 <map id="src/ErriezMHZ19B.cpp" name="src/ErriezMHZ19B.cpp">
-<area shape="rect" id="node1" title="MH&#45;Z19B CO2 sensor library for Arduino." alt="" coords="5,5,171,32"/>
-<area shape="rect" id="node2" href="$_erriez_m_h_z19_b_8h.html" title="MH&#45;Z19B CO2 sensor library for Arduino." alt="" coords="25,80,151,107"/>
-<area shape="rect" id="node3" title=" " alt="" coords="46,155,130,181"/>
+<area shape="rect" id="Node000001" title="MH&#45;Z19B CO2 sensor library for Arduino." alt="" coords="5,5,171,31"/>
+<area shape="rect" id="Node000002" href="$_erriez_m_h_z19_b_8h.html" title="MH&#45;Z19B CO2 sensor library for Arduino." alt="" coords="25,79,151,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="91,31,91,65,85,65,85,31"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="46,152,130,177"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="91,104,91,138,85,138,85,104"/>
 </map>
