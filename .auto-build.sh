@@ -41,7 +41,8 @@ function setup_virtualenv()
     if [ ! -d ".venv" ]; then
         virtualenv .venv
         source .venv/bin/activate
-        pip3 install platformio==6.1.4
+        pip3 install platformio==6.1.18
+        pip3 install intelhex==2.3.0
         deactivate
     fi
 
