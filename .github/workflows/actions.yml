@@ -41,8 +41,10 @@ jobs:
         with:
           python-version: '3.9'
 
-      - name: Install PlatformIO Core
-        run: pip install --upgrade platformio
+      - name: Install Pip dependencies
+        run: |
+          pip install intelhex==2.3.0
+          pip install platformio==6.1.18
 
       - name: Build examples
         run: |
